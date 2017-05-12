@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Baby App</string>
+
+    <!-- Strings related to login & registration -->
+    <string name="User_Name">USERNAME</string>
+    <string name="password">PASSWORD</string>
+    <string name="sign_in">SIGNIN</string>
+    <string name="full_name">FULL NAME</string>
+    <string name="email">EMAIL</string>
+    <string name="sign_up">SIGNUP</string>
+    <string name="or">OR</string>
+    <string name="google_icon">Google Icon</string>
+    <string name="twitter_icon">Twitter Icon</string>
+    <string name="facebook_icon">Facebook Icon</string>
+    <string name="already_have_account">ALREADY HAVE ACCOUNT</string>
+    <string name="need_account">NEED ACCOUNT</string>
+    <string name="forget_password">Forget Password ?!</string>
+    <string name="error_invalid_username">Invalid Username</string>
+    <string name="error_field_required">Field Required</string>
+    <string name="error_invalid_email">Invalid Email</string>
+    <string name="error_invalid_password">Invalid Password</string>
+    <string name="error_invalid_fullname">Invalid Name</string>
 </resources>
