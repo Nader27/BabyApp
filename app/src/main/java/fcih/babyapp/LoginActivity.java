@@ -111,6 +111,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         view.startAnimation(animation);
     }
 
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            if (hasFocus) {
+                getWindow().getDecorView()
+                        .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,7 +151,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mgoogle = (ImageView) findViewById(R.id.google);
         mtwitter = (ImageView) findViewById(R.id.twitter);
         //endregion
-
+        mAuth = FirebaseAuth.getInstance();
         //region ClickListener Setup
         mlogin.setOnClickListener(this);
         mregister.setOnClickListener(this);
@@ -177,7 +192,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (isUsernameValid(mregister_usernameView) && isFullnameValid(mregister_fullnameView)
                 && isEmailValid(mregister_emailView) && isPasswordValid(mregister_passwordView)) {
             showProgress(true);
-            mAuth.createUserWithEmailAndPassword(mregister_usernameView.getText().toString(), mregister.getText().toString())
+            mAuth.createUserWithEmailAndPassword(mregister_emailView.getText().toString().trim(), mregister_passwordView.getText().toString().trim())
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
 
@@ -185,7 +200,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     .setDisplayName(mregister_fullnameView.getText().toString())
                                     .build();
                             mAuth.signOut();
-                            mAuth.signInWithEmailAndPassword(mregister_usernameView.getText().toString(), mregister.getText().toString());
+                            mAuth.signInWithEmailAndPassword(mregister_usernameView.getText().toString(), mregister_passwordView.getText().toString());
                             final FirebaseUser user = task.getResult().getUser();
                             user.updateProfile(profileUpdates);
                             FireBaseHelper.Users FUSER = new FireBaseHelper.Users();
@@ -262,7 +277,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             usernameview.setError(getString(R.string.error_field_required));
         } else if (username.length() < 6) {
             usernameview.setError(getString(R.string.error_invalid_username));
-        } else if (!username.matches("/^[a-zA-Z0-9]+$/")) {
+        } else if (username.matches("/^[a-zA-Z0-9]+$/")) {
             usernameview.setError(getString(R.string.error_invalid_username));
         } else return true;
         usernameview.requestFocus();
@@ -276,7 +291,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             fullnameview.setError(getString(R.string.error_field_required));
         } else if (fullname.length() < 6) {
             fullnameview.setError(getString(R.string.error_invalid_fullname));
-        } else if (!fullname.matches("/^[a-zA-Z- ]+$/")) {
+        } else if (fullname.matches("/^[a-zA-Z- ]+$/")) {
             fullnameview.setError(getString(R.string.error_invalid_fullname));
         } else return true;
         fullnameview.requestFocus();
@@ -307,7 +322,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }
     }
-
     private void GoogleLogin() {
         findViewById(R.id.Google_button).setOnClickListener(v -> {
             Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
@@ -327,7 +341,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
     }
-
+/*
     private void FacebookLogin() {
         callbackManager = CallbackManager.Factory.create();
         LoginButton fbLoginButton = (LoginButton) findViewById(R.id.Facebook_button);

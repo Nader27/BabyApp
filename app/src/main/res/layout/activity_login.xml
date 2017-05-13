@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/start_background_image"
+    android:background="@drawable/background"
     tools:context="fcih.babyapp.LoginActivity">
 
     <LinearLayout
@@ -85,7 +85,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="30dp"
+                android:layout_margin="20dp"
                 android:gravity="center"
                 android:text="@string/or"
                 android:textColor="@color/white_text"
@@ -95,7 +95,8 @@
                 android:id="@+id/login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -178,7 +179,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <Button
                     android:id="@+id/login_form_btn"
@@ -284,4 +285,4 @@
 
     </LinearLayout>
 
-</ScrollView>
+</RelativeLayout>
