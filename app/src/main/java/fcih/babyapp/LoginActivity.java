@@ -262,7 +262,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             usernameview.setError(getString(R.string.error_field_required));
         } else if (username.length() < 6) {
             usernameview.setError(getString(R.string.error_invalid_username));
-        } else if (!username.matches("/^[a-zA-Z0-9]+$/")) {
+        } else if (!username.matches("^[a-zA-Z0-9]+$")) {
             usernameview.setError(getString(R.string.error_invalid_username));
         } else return true;
         usernameview.requestFocus();
@@ -458,13 +458,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.login:
-                collapse(mregister_form);
-                expand(mlogin_form);
+            case R.id.login_form_btn:
+                collapse(mRegisterView);
+                expand(mLoginView);
                 break;
-            case R.id.register:
-                collapse(mlogin_form);
-                expand(mregister_form);
+            case R.id.register_form_btn:
+                collapse(mLoginView);
+                expand(mRegisterView);
                 break;
             case R.id.forget_password_btn:
                 EmailForgetPassword();

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/start_background_image"
+    android:background="@drawable/start_background"
     tools:context="fcih.babyapp.LoginActivity">
 
     <LinearLayout
@@ -43,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded"
+                android:orientation="horizontal"
                 android:padding="10dp">
 
                 <TextView
@@ -97,10 +98,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
                     <EditText
                         android:id="@+id/login_email"
                         android:layout_width="match_parent"
@@ -112,12 +109,6 @@
                         android:textColor="@color/white_text"
                         android:textColorHint="@color/white_text"
                         android:textSize="15sp" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
                     <EditText
                         android:id="@+id/login_password"
@@ -133,8 +124,6 @@
                         android:textColor="@color/white_text"
                         android:textColorHint="@color/white_text"
                         android:textSize="15sp" />
-
-                </android.support.design.widget.TextInputLayout>
 
                 <Button
                     android:id="@+id/login_btn"
@@ -192,10 +181,6 @@
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
                     <EditText
                         android:id="@+id/register_username"
                         android:layout_width="match_parent"
@@ -207,12 +192,6 @@
                         android:textColor="@color/white_text"
                         android:textColorHint="@color/white_text"
                         android:textSize="15sp" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
                     <EditText
                         android:id="@+id/register_full_name"
@@ -226,12 +205,6 @@
                         android:textColorHint="@color/white_text"
                         android:textSize="15sp" />
 
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
                     <EditText
                         android:id="@+id/register_email"
                         android:layout_width="match_parent"
@@ -243,12 +216,6 @@
                         android:textColor="@color/white_text"
                         android:textColorHint="@color/white_text"
                         android:textSize="15sp" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
                     <EditText
                         android:id="@+id/register_password"
@@ -264,8 +231,6 @@
                         android:textColor="@color/white_text"
                         android:textColorHint="@color/white_text"
                         android:textSize="15sp" />
-
-                </android.support.design.widget.TextInputLayout>
 
                 <Button
                     android:id="@+id/register_btn"
