@@ -2,6 +2,7 @@ package fcih.babyapp;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -147,7 +148,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mfacebook.setOnClickListener(this);
         mgoogle.setOnClickListener(this);
         mtwitter.setOnClickListener(this);
-
+        mAuth = FirebaseAuth.getInstance();
         //endregion
 
 
@@ -163,6 +164,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Toast.makeText(LoginActivity.this, "TEST Login Success", Toast.LENGTH_SHORT).show();
                             //startActivity(new Intent(LoginActivity.this, BaseActivity.class));
                             //finish();
+                            Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(mainIntent);
+                            finish();
                             showProgress(false);
                         } else {
                             showProgress(false);
@@ -172,12 +177,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+
     private void EmailRegister() {
 
         if (isUsernameValid(mregister_usernameView) && isFullnameValid(mregister_fullnameView)
                 && isEmailValid(mregister_emailView) && isPasswordValid(mregister_passwordView)) {
             showProgress(true);
-            mAuth.createUserWithEmailAndPassword(mregister_usernameView.getText().toString(), mregister.getText().toString())
+            mAuth.createUserWithEmailAndPassword(mregister_emailView.getText().toString(), mregister_passwordView.getText().toString())
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
 
@@ -185,7 +191,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     .setDisplayName(mregister_fullnameView.getText().toString())
                                     .build();
                             mAuth.signOut();
-                            mAuth.signInWithEmailAndPassword(mregister_usernameView.getText().toString(), mregister.getText().toString());
+                            mAuth.signInWithEmailAndPassword(mregister_emailView.getText().toString(), mregister_passwordView.getText().toString());
                             final FirebaseUser user = task.getResult().getUser();
                             user.updateProfile(profileUpdates);
                             FireBaseHelper.Users FUSER = new FireBaseHelper.Users();
@@ -276,7 +282,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             fullnameview.setError(getString(R.string.error_field_required));
         } else if (fullname.length() < 6) {
             fullnameview.setError(getString(R.string.error_invalid_fullname));
-        } else if (!fullname.matches("/^[a-zA-Z- ]+$/")) {
+        } else if (!fullname.matches("^[a-zA-Z- ]+$")) {
             fullnameview.setError(getString(R.string.error_invalid_fullname));
         } else return true;
         fullnameview.requestFocus();
