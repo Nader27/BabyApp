@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position){
                 case 0:
-                    return AboutFragment.newInstance();
+                    return  AboutFragment.newInstance();
                 case 1:
                     return GalleryFragment.newInstance();
                 case 2:
