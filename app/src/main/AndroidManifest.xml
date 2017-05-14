@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -28,9 +28,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".About" />
-        <activity android:name=".Profile" />
+        <activity android:name=".ProfileFragment" />
         <activity android:name=".Gallary" />
-        <activity android:name=".AddPost"></activity>
+        <activity android:name=".AddPost" />
+        <activity
+            android:name=".BaseActivity"
+            android:label="@string/title_activity_base"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="@color/colorPrimaryDark"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/colorPrimaryDark"
+            app:statusBarScrim="#@color/colorPrimaryDark"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="190dp"
+                android:paddingBottom="40dp"
+                android:layout_gravity="center|top"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:gravity="center">
+
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/user_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="50dp"
+        android:elevation="10dp"
+        android:src="@drawable/deafult_user_image"
+        app:dependTargetY="-176dp"
+        app:dependType="y"
+        app:dependsOn="@+id/app_bar"
+        app:layout_behavior="com.zoonref.SimpleViewBehavior"
+        app:targetHeight="40dp"
+        app:targetWidth="40dp"
+        app:targetX="16dp"
+        app:targetY="8dp"
+        app:riv_border_color="@color/Dark_pink"
+        app:riv_border_width="3dip"
+        app:riv_corner_radius="35dip"
+        app:riv_mutate_background="true"
+        app:riv_oval="true"
+        app:riv_tile_mode="clamp"/>
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="-100dp"
+        android:alpha="0"
+        android:elevation="10dp"
+        android:gravity="center_vertical"
+        android:text="Name"
+        android:textColor="@android:color/white"
+        android:textSize="18dp"
+        app:dependTargetY="-206dp"
+        app:dependType="y"
+        app:dependsOn="@+id/app_bar"
+        app:layout_behavior="com.zoonref.SimpleViewBehavior"
+        app:targetAlpha="1"
+        app:targetY="0dp" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:indeterminate="false"
+        android:visibility="gone" />
+
+    <FrameLayout
+
+        android:id="@+id/Content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:visibility="visible" />
+
+</android.support.design.widget.CoordinatorLayout>
