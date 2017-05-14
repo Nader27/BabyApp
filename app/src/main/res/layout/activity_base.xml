@@ -13,8 +13,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        android:background="@color/grey_bg"
+        android:background="#dc262626"
+        app:itemIconTint="#BBBAC2"
+        app:itemTextColor="#BBBAC2"
+        app:headerLayout="@layout/nav_header_base"
         app:menu="@menu/activity_base_drawer" />
 
     <include
