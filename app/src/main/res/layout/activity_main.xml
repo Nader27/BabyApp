@@ -24,4 +24,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="109dp"
         android:text="LogOut" />
+
+    <Button
+        android:id="@+id/addpost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/logout"
+        android:layout_marginEnd="22dp"
+        android:layout_toStartOf="@+id/logout"
+        android:text="Add" />
 </RelativeLayout>

@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthlistener;
     private Button logout;
+    private Button Add;
+
 
 
     @Override
@@ -20,6 +22,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         logout = (Button) findViewById(R.id.logout);
+        Add = (Button) findViewById(R.id.addpost);
+
+        Add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainIntent = new Intent(MainActivity.this, AddPost.class);
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(mainIntent);
+            }
+        });
         //Check User Exist
         mAuth = FirebaseAuth.getInstance();
         mAuthlistener = new FirebaseAuth.AuthStateListener() {
