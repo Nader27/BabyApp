@@ -28,7 +28,7 @@ public class AboutFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_about, container, false);
-     /*   about_username=(TextView)v.findViewById(R.id.nameabout);
+        about_username = (TextView) v.findViewById(R.id.nameabout);
         about_email=(TextView)v.findViewById(R.id.emailabout);
         about_gender=(TextView)v.findViewById(R.id.genderabout);
         about_child_num=(TextView)v.findViewById(R.id.childnumabout);
@@ -39,20 +39,14 @@ public class AboutFragment extends Fragment {
         mAuth=FirebaseAuth.getInstance();
         String uid=mAuth.getCurrentUser().getUid();
 
-
-        FireBaseHelper.Users USER=new FireBaseHelper.Users();
-        USER.Findbykey(uid, new FireBaseHelper.OnGetDataListener<FireBaseHelper.Users>() {
-            @Override
-            public void onSuccess(FireBaseHelper.Users Data) {
-                about_username.setText(USER.getName());
-                about_email.setText(USER.getEmail());
-                about_country.setText(USER.getCountry());
-                about_birthofdate.setText(USER.getBirth());
-                about_gender.setText(USER.getGender());
-            }
+        new FireBaseHelper.Users().Findbykey(uid, Data -> {
+            about_username.setText(Data.name);
+            about_email.setText(Data.email);
+            about_country.setText(Data.country);
+            about_birthofdate.setText(Data.birth);
+            about_gender.setText(Data.gender);
         });
 
-*/
 
         return v;
     }
