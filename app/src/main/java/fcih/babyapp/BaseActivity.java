@@ -15,11 +15,12 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 public class BaseActivity extends AppCompatActivity
@@ -27,6 +28,8 @@ public class BaseActivity extends AppCompatActivity
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private FireBaseHelper.Users CurrentUser;
+    private TextView barusername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class BaseActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -55,6 +59,7 @@ public class BaseActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         onNavigationItemSelected(navigationView.getMenu().getItem(0));
+
     }
 
     @Override
@@ -81,18 +86,36 @@ public class BaseActivity extends AppCompatActivity
 
     public void UserSetup() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        ImageView userimage = (ImageView) findViewById(R.id.nav_user_image);
-        TextView username = (TextView) findViewById(R.id.nav_user_name);
-        TextView useremail = (TextView) findViewById(R.id.nav_user_home);
+        RoundedImageView navuserimage = (RoundedImageView) findViewById(R.id.nav_user_image);
+        TextView navusername = (TextView) findViewById(R.id.nav_user_name);
+        TextView navuserhome = (TextView) findViewById(R.id.nav_user_home);
+        RoundedImageView baruserimage = (RoundedImageView) findViewById(R.id.toolbar_user_image);
+        barusername = (TextView) findViewById(R.id.toolbar_user_name);
+        TextView barfullusername = (TextView) findViewById(R.id.toolbar_full_user_name);
+
 
         if (user != null) {
+            new FireBaseHelper.Users().Findbykey(mAuth.getCurrentUser().getUid(), Data -> {
+                CurrentUser = Data;
 
-            Picasso.with(getApplicationContext())
-                    .load(user.getPhotoUrl())
-                    .resize(userimage.getWidth(), userimage.getWidth())
-                    .into(userimage);
-            username.setText(user.getDisplayName());
-            useremail.setText(user.getEmail());
+                if (!Data.image.isEmpty()) {
+                    Picasso.with(getApplicationContext())
+                            .load(user.getPhotoUrl())
+                            .resize(navuserimage.getWidth(), navuserimage.getWidth())
+                            .into(navuserimage);
+                    Picasso.with(getApplicationContext())
+                            .load(user.getPhotoUrl())
+                            .resize(baruserimage.getWidth(), baruserimage.getWidth())
+                            .into(baruserimage);
+                }
+                navusername.setText(user.getDisplayName());
+                barfullusername.setText(user.getDisplayName());
+                barusername.setText(CurrentUser.username);
+                if (!CurrentUser.city.isEmpty() && !CurrentUser.city.isEmpty()) {
+                    navuserhome.setText(CurrentUser.city + "," + CurrentUser.country);
+                } else
+                    navuserhome.setText(CurrentUser.city + CurrentUser.country);
+            });
         }
     }
 
@@ -103,6 +126,19 @@ public class BaseActivity extends AppCompatActivity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(
                 new ComponentName(this, BaseActivity.class)
         ));
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                barusername.setVisibility(View.GONE);
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                barusername.setVisibility(View.VISIBLE);
+                return true;
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -157,7 +193,7 @@ public class BaseActivity extends AppCompatActivity
         } else if (id == R.id.nav_notifications) {
 
         } else if (id == R.id.nav_camera) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.Content, CameraFragment.newInstance()).commit();
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_logout) {

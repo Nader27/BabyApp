@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,284 +9,294 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <me.grantland.widget.AutofitTextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="30"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:text="@string/full_name"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
-
-        <me.grantland.widget.AutofitTextView
-            android:id="@+id/nameabout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="70"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@color/colorPrimaryDark" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="100">
+        android:orientation="vertical">
 
-        <me.grantland.widget.AutofitTextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="30"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:text="@string/User_Name"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
+            android:orientation="horizontal"
+            android:weightSum="100">
 
-        <me.grantland.widget.AutofitTextView
-            android:id="@+id/usernameabout"
-            android:layout_width="0dp"
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="30"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:text="@string/full_name"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/nameabout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="70"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/colorPrimaryDark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="70"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="30"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:text="@string/User_Name"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/usernameabout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="70"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/colorPrimaryDark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="30"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:text="@string/email"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/emailabout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="70"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/colorPrimaryDark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="30"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:text="@string/birthday"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/birthabout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="70"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/colorPrimaryDark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="30"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:text="@string/country"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/countryabout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="70"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/colorPrimaryDark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="30"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:text="@string/city"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/cityabout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="70"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/colorPrimaryDark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="30"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:text="@string/gender"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/genderabout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="70"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/colorPrimaryDark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="30"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:text="@string/children"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/childnumabout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="70"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/colorPrimaryDark" />
 
     </LinearLayout>
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@color/colorPrimaryDark" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <me.grantland.widget.AutofitTextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="30"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:text="@string/email"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
-
-        <me.grantland.widget.AutofitTextView
-            android:id="@+id/emailabout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="70"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@color/colorPrimaryDark" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <me.grantland.widget.AutofitTextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="30"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:text="@string/gender"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
-
-        <me.grantland.widget.AutofitTextView
-            android:id="@+id/genderabout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="70"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@color/colorPrimaryDark" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <me.grantland.widget.AutofitTextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="30"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:text="@string/children"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
-
-        <me.grantland.widget.AutofitTextView
-            android:id="@+id/childnumabout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="70"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@color/colorPrimaryDark" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <me.grantland.widget.AutofitTextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="30"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:text="@string/country"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
-
-        <me.grantland.widget.AutofitTextView
-            android:id="@+id/countryabout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="70"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@color/colorPrimaryDark" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <me.grantland.widget.AutofitTextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="30"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:text="@string/city"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
-
-        <me.grantland.widget.AutofitTextView
-            android:id="@+id/cityabout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="70"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@color/colorPrimaryDark" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <me.grantland.widget.AutofitTextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="30"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:text="@string/birthday"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
-
-        <me.grantland.widget.AutofitTextView
-            android:id="@+id/birthabout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="70"
-            android:maxLines="1"
-            android:padding="15dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@color/colorPrimaryDark" />
-</LinearLayout>
+</android.support.v4.widget.NestedScrollView>

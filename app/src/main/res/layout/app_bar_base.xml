@@ -33,6 +33,14 @@
                 android:paddingBottom="40dp"
                 android:paddingTop="190dp">
 
+                <TextView
+                    android:id="@+id/toolbar_full_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp"/>
+
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
@@ -47,14 +55,13 @@
     </android.support.design.widget.AppBarLayout>
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/user_image"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:id="@+id/toolbar_user_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center|top"
         android:layout_marginTop="50dp"
-        android:elevation="10dp"
         android:src="@drawable/deafult_user_image"
-        app:dependTargetY="-176dp"
+        app:dependTargetY="-175dp"
         app:dependType="y"
         app:dependsOn="@+id/app_bar"
         app:layout_behavior="com.zoonref.SimpleViewBehavior"
@@ -66,27 +73,26 @@
         app:riv_tile_mode="clamp"
         app:targetHeight="40dp"
         app:targetWidth="40dp"
-        app:targetX="16dp"
-        app:targetY="8dp" />
+        app:targetX="43dp"
+        app:targetY="-19dp" />
 
     <TextView
-        android:id="@+id/user_name"
+        android:id="@+id/toolbar_user_name"
         android:layout_width="wrap_content"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginLeft="72dp"
+        android:layout_marginStart="72dp"
         android:layout_marginTop="-100dp"
         android:alpha="0"
-        android:elevation="10dp"
         android:gravity="center_vertical"
-        android:text="Name"
         android:textColor="@android:color/white"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:dependTargetY="-206dp"
         app:dependType="y"
         app:dependsOn="@+id/app_bar"
         app:layout_behavior="com.zoonref.SimpleViewBehavior"
         app:targetAlpha="1"
-        app:targetY="0dp" />
+        app:targetY="-25dp"
+        app:targetX="88dp"/>
 
     <ProgressBar
         android:id="@+id/progress"
