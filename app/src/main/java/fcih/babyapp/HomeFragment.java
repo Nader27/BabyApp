@@ -92,7 +92,7 @@ public class HomeFragment extends Fragment {
                 case 1:
                     return "Gallery";
                 case 2:
-                    return "ProfileFragment";
+                    return "Profile";
             }
             return null;
         }
