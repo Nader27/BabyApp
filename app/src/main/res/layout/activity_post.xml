@@ -34,26 +34,41 @@
             android:padding="5dp"
             android:tint="#FFF"
             app:srcCompat="@drawable/ic_close" />
+
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/post_image"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.6"
-        app:srcCompat="@drawable/deafult_user_image" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <Spinner
-        android:id="@+id/post_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.1" />
+        <FrameLayout
+            android:id="@+id/frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.6">
 
-    <EditText
-        android:id="@+id/post_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.3"
-        android:hint="description" />
+            <ImageView
+                android:id="@+id/post_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/deafult_user_image" />
+
+            <EditText
+                android:id="@+id/post_description"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="bottom"
+                android:background="@color/grey_bg"
+                android:hint="description"
+                android:maxLines="3"
+                android:padding="10dp"
+                android:textColor="@color/white_text"
+                android:textColorHint="@color/white_text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+    </LinearLayout>
 
 </LinearLayout>

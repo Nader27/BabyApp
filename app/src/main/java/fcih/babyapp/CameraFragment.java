@@ -1,14 +1,9 @@
 package fcih.babyapp;
 
 
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.theartofdev.edmodo.cropper.CropImage;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -42,7 +35,8 @@ public class CameraFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Camera.
+        CropImage.startPickImageActivity(getActivity());
+        /*// Camera.
         final List<Intent> cameraIntents = new ArrayList<>();
         final Intent captureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         final PackageManager packageManager = getActivity().getPackageManager();
@@ -59,7 +53,7 @@ public class CameraFragment extends Fragment {
 
         // Filesystem.
         final Intent galleryIntent = new Intent();
-        galleryIntent.setType("image/*");
+        galleryIntent.setType("image*//*");
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
 
         // Chooser of filesystem options.
@@ -67,16 +61,16 @@ public class CameraFragment extends Fragment {
 
         // Add the camera options.
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, cameraIntents.toArray(new Parcelable[]{}));
-        startActivityForResult(chooserIntent, YOUR_REQUEST_CODE);
+        startActivityForResult(chooserIntent, YOUR_REQUEST_CODE);*/
         return null;
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == YOUR_REQUEST_CODE && data != null) {
-            CropImage.activity(data.getData())
-                    .start(getContext(), this);
+        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == RESULT_OK) {
+            Uri imageUri = CropImage.getPickImageResultUri(getActivity(), data);
+            CropImage.activity(imageUri).setCropShape(CropImageView.CropShape.RECTANGLE).setFixAspectRatio(true)
+                    .start(getContext(),this);
         } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
