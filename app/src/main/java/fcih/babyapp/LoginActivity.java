@@ -205,10 +205,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             FUSER.country = "";
                             FUSER.Add(user.getUid());
                             showProgress(false);
-                            //startActivity(new Intent(LoginActivity.this, BaseActivity.class));
-                            //finish();
-                            Toast.makeText(LoginActivity.this, "Test Register Successfully",
-                                    Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginActivity.this, BaseActivity.class));
+                            finish();
                         } else {
                             showProgress(false);
                             Toast.makeText(LoginActivity.this, task.getException().getMessage(),
