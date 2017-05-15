@@ -161,12 +161,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             mAuth.signInWithEmailAndPassword(mLogin_emailView.getText().toString(), mLogin_passwordView.getText().toString())
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, "TEST Login Success", Toast.LENGTH_SHORT).show();
-                            //startActivity(new Intent(LoginActivity.this, BaseActivity.class));
-                            //finish();
-                            Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(mainIntent);
+                            startActivity(new Intent(LoginActivity.this, BaseActivity.class));
                             finish();
                             showProgress(false);
                         } else {
