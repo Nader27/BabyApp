@@ -121,7 +121,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                         FireBaseHelper.Users USER = new FireBaseHelper.Users();
                         USER.Findbykey(user.getUid(), Data -> {
                             Data.name = mNameview.getText().toString();
-                            Data.image_uri = downloadUrl.toString();
+                            Data.image = downloadUrl.toString();
                             Data.Update(Data.Key);
                            // activity.onNavigationItemSelected(activity.navigationView.getMenu().getItem(0));
                         });
@@ -139,7 +139,6 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                        // activity.onNavigationItemSelected(activity.navigationView.getMenu().getItem(0));
                     });
                 }
-
                 //endregion
                 break;
             case R.id.editpassword:

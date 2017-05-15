@@ -137,6 +137,7 @@ public class BaseActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_logout) {
+            FirebaseAuth.getInstance().signOut();
 
         }
 
