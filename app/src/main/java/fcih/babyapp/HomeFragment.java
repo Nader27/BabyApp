@@ -1,8 +1,6 @@
 package fcih.babyapp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,15 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 public class HomeFragment extends Fragment {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ProgressBar mProgressView;
     private ViewGroup mContainer;
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthlistener;
+
 
 
     public HomeFragment() {
@@ -42,34 +37,20 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        view.findViewById(R.id.tabs).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
         mProgressView = (ProgressBar) getActivity().findViewById(R.id.progress);
 
         mContainer = container;
-        // showProgress(true);
+        //showProgress(true);
         ViewPager mViewPager = (ViewPager) view.findViewById(R.id.container);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getActivity().getSupportFragmentManager());
         // Set up the ViewPager with the sections adapter.
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setVisibility(View.VISIBLE);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.setupWithViewPager(mViewPager);
-        FirebaseAuth.getInstance().signOut();
-        mAuth = FirebaseAuth.getInstance();
-        mAuthlistener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser() == null) {
-                    Intent loginIntent = new Intent(view.getContext(), LoginActivity.class);
-                    loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(loginIntent);
-
-                }
-
-            }
-        };
 
         return view;
 
