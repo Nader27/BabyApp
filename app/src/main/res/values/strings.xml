@@ -29,4 +29,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="gender">GENDER</string>
+    <string name="children">CHILDREN</string>
+    <string name="country">COUNTRY</string>
+    <string name="city">CITY</string>
+    <string name="birthday">BIRTHDATE</string>
 </resources>

@@ -1,233 +1,292 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="10dp"
+    android:orientation="vertical"
     tools:context="fcih.babyapp.AboutFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:weightSum="100">
 
-        <LinearLayout
-            android:id="@+id/linearName"
-            android:layout_width="match_parent"
+        <me.grantland.widget.AutofitTextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="10dp"
+            android:layout_weight="30"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:text="@string/full_name"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:padding="15dp"
-                android:text="Name"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/nameabout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:padding="15dp"
-                android:text="Name"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/separator1"
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:background="@color/colorPrimaryDark" />
-
-        <LinearLayout
-            android:id="@+id/linearemail"
-        android:layout_width="match_parent"
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/nameabout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/linearName"
-            android:orientation="horizontal">
+            android:layout_marginStart="10dp"
+            android:layout_weight="70"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:padding="15dp"
-                android:text="Email"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/emailabout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:padding="15dp"
-                android:text="Email"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
-
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/separator2"
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:background="@color/colorPrimaryDark" />
-
-        <LinearLayout
-            android:id="@+id/linearGender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linearemail"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:padding="15dp"
-                android:text="Gender"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/genderabout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:padding="15dp"
-                android:text="Gender"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <View
-            android:id="@+id/separator3"
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:background="@color/colorPrimaryDark" />
-
-        <LinearLayout
-            android:id="@+id/linearchildnum"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linearName"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:padding="15dp"
-                android:text="Child numbers"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/childnumabout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:padding="15dp"
-                android:text="Child numbers"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
-
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/separator4"
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:background="@color/colorPrimaryDark" />
-
-        <LinearLayout
-            android:id="@+id/linearcountry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linearName"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:padding="15dp"
-                android:text="Country"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/countryabout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:padding="15dp"
-                android:text="Country"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
-
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/separator"
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:background="@color/colorPrimaryDark" />
-
-        <LinearLayout
-            android:id="@+id/linearbirth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linearName"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:padding="15dp"
-                android:text="Birthday"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/birthabout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:padding="15dp"
-                android:text="Birthday"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
-
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/separator5"
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:background="@color/colorPrimaryDark" />
     </LinearLayout>
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/colorPrimaryDark" />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <me.grantland.widget.AutofitTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="30"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:text="@string/User_Name"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/usernameabout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="70"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/colorPrimaryDark" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <me.grantland.widget.AutofitTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="30"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:text="@string/email"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/emailabout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="70"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/colorPrimaryDark" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <me.grantland.widget.AutofitTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="30"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:text="@string/gender"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/genderabout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="70"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/colorPrimaryDark" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <me.grantland.widget.AutofitTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="30"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:text="@string/children"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/childnumabout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="70"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/colorPrimaryDark" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <me.grantland.widget.AutofitTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="30"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:text="@string/country"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/countryabout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="70"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/colorPrimaryDark" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <me.grantland.widget.AutofitTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="30"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:text="@string/city"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/cityabout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="70"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/colorPrimaryDark" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <me.grantland.widget.AutofitTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="30"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:text="@string/birthday"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/birthabout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="70"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/colorPrimaryDark" />
+</LinearLayout>

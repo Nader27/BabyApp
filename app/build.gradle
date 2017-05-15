@@ -46,6 +46,7 @@ dependencies {
     compile 'com.zoonref:simple-view-behavior:1.0'
     compile 'com.makeramen:roundedimageview:2.3.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'me.grantland:autofittextview:0.2.1'
     testCompile 'junit:junit:4.12'
 }
 
