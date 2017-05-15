@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -11,8 +9,8 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
         android:background="@color/colorPrimaryDark"
+        android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -21,19 +19,19 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             app:contentScrim="@color/colorPrimaryDark"
-            app:statusBarScrim="#@color/colorPrimaryDark"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:statusBarScrim="@color/colorPrimaryDark">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="190dp"
-                android:paddingBottom="40dp"
                 android:layout_gravity="center|top"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="40dp"
+                android:paddingTop="190dp">
 
             </LinearLayout>
 
@@ -60,16 +58,16 @@
         app:dependType="y"
         app:dependsOn="@+id/app_bar"
         app:layout_behavior="com.zoonref.SimpleViewBehavior"
-        app:targetHeight="40dp"
-        app:targetWidth="40dp"
-        app:targetX="16dp"
-        app:targetY="8dp"
         app:riv_border_color="@color/Dark_pink"
         app:riv_border_width="3dip"
         app:riv_corner_radius="35dip"
         app:riv_mutate_background="true"
         app:riv_oval="true"
-        app:riv_tile_mode="clamp"/>
+        app:riv_tile_mode="clamp"
+        app:targetHeight="40dp"
+        app:targetWidth="40dp"
+        app:targetX="16dp"
+        app:targetY="8dp" />
 
     <TextView
         android:id="@+id/user_name"
@@ -106,7 +104,7 @@
         android:id="@+id/Content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:visibility="visible" />
+        android:visibility="visible"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>

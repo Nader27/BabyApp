@@ -14,14 +14,15 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#dc262626"
+        app:headerLayout="@layout/nav_header_base"
         app:itemIconTint="#BBBAC2"
         app:itemTextColor="#BBBAC2"
-        app:headerLayout="@layout/nav_header_base"
         app:menu="@menu/activity_base_drawer" />
 
     <include
         layout="@layout/app_bar_base"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 
 </android.support.v4.widget.DrawerLayout>

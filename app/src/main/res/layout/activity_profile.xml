@@ -12,8 +12,8 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
         android:background="#4a90e2"
+        android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -22,27 +22,27 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             app:contentScrim="#4a90e2"
-            app:statusBarScrim="#4a90e2"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:statusBarScrim="#4a90e2">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="190dp"
-                android:paddingBottom="40dp"
                 android:layout_gravity="center|top"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="40dp"
+                android:paddingTop="190dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="HI!"
-                    android:textStyle="bold"
                     android:textColor="@android:color/white"
-                    android:textSize="30dp"/>
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -79,41 +79,41 @@
         android:id="@+id/Content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:visibility="visible" />
+        android:visibility="visible"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     
     <ImageView
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:src=""
         android:layout_gravity="center|top"
         android:layout_marginTop="50dp"
         android:elevation="10dp"
-        app:layout_behavior="com.zoonref.SimpleViewBehavior"
-        app:dependsOn="@+id/app_bar"
-        app:dependType="y"
+        android:src="@drawable/deafult_user_image"
         app:dependTargetY="-176dp"
-        app:targetX="16dp"
-        app:targetY="8dp"
+        app:dependType="y"
+        app:dependsOn="@+id/app_bar"
+        app:layout_behavior="com.zoonref.SimpleViewBehavior"
+        app:targetHeight="40dp"
         app:targetWidth="40dp"
-        app:targetHeight="40dp"/>
+        app:targetX="16dp"
+        app:targetY="8dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="?attr/actionBarSize"
-        android:text="Amornchai"
-        android:textSize="18dp"
-        android:elevation="10dp"
         android:layout_marginLeft="72dp"
         android:layout_marginTop="-100dp"
-        android:gravity="center_vertical"
-        android:textColor="@android:color/white"
         android:alpha="0"
-        app:layout_behavior="com.zoonref.SimpleViewBehavior"
-        app:dependsOn="@+id/app_bar"
-        app:dependType="y"
+        android:elevation="10dp"
+        android:gravity="center_vertical"
+        android:text="Amornchai"
+        android:textColor="@android:color/white"
+        android:textSize="18dp"
         app:dependTargetY="-206dp"
-        app:targetY="0dp"
-        app:targetAlpha="1"/>
+        app:dependType="y"
+        app:dependsOn="@+id/app_bar"
+        app:layout_behavior="com.zoonref.SimpleViewBehavior"
+        app:targetAlpha="1"
+        app:targetY="0dp" />
 
 </android.support.design.widget.CoordinatorLayout>

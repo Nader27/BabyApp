@@ -16,7 +16,6 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class AboutFragment extends Fragment {
-
     public AboutFragment() {
         // Required empty public constructor
     }

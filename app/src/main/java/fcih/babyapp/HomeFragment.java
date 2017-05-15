@@ -35,17 +35,16 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        getActivity().findViewById(R.id.tabs).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.tabs).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
         mProgressView = (ProgressBar) getActivity().findViewById(R.id.progress);
         mContainer = container;
-        showProgress(true);
+        // showProgress(true);
         ViewPager mViewPager = (ViewPager) view.findViewById(R.id.container);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getActivity().getSupportFragmentManager());
         // Set up the ViewPager with the sections adapter.
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) getActivity().findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setVisibility(View.VISIBLE);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.setupWithViewPager(mViewPager);
