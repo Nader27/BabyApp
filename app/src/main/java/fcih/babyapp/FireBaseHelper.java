@@ -398,10 +398,27 @@ public class FireBaseHelper {
                     //if no foreign key
                     //listener.onSuccess(obj);
                     //ex:
-                    new Children().Where(Children.Table.Parent, obj.Key, Data -> {
-                        obj.childrens = Data;
-                        listener.onSuccess(obj);
+                    Children.Ref.orderByChild(Children.Table.Parent.text).equalTo(obj.Key).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot data : dataSnapshot.getChildren()) {
+                                Children child = new Children();
+                                Map<String, String> Values = new HashMap<>();
+                                for (Children.Table T : Children.Table.values()) {
+                                    new Children().setbyName(child, T.name(), data.child(T.text).getValue().toString());
+                                }
+                                obj.childrens.add(child);
+
+                            }
+                            listener.onSuccess(obj);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
                     });
+
                 }
 
                 @Override
@@ -428,11 +445,27 @@ public class FireBaseHelper {
                             setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
                         }
                         //if no foreign key
-                        new Children().Where(Children.Table.Parent, obj.Key, Data -> {
-                            obj.childrens = Data;
-                            Items.add(obj);
-                            if (!iterator.hasNext()) {
-                                listener.onSuccess(Items);
+                        Children.Ref.orderByChild(Children.Table.Parent.text).equalTo(obj.Key).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                                    Children child = new Children();
+                                    Map<String, String> Values = new HashMap<>();
+                                    for (Children.Table T : Children.Table.values()) {
+                                        new Children().setbyName(child, T.name(), data.child(T.text).getValue().toString());
+                                    }
+                                    obj.childrens.add(child);
+
+                                }
+                                Items.add(obj);
+                                if (!iterator.hasNext()) {
+                                    listener.onSuccess(Items);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
                             }
                         });
 
@@ -466,11 +499,27 @@ public class FireBaseHelper {
                             setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
                         }
                         //if no foreign key
-                        new Children().Where(Children.Table.Parent, obj.Key, Data -> {
-                            obj.childrens = Data;
-                            Items.add(obj);
-                            if (!iterator.hasNext()) {
-                                listener.onSuccess(Items);
+                        Children.Ref.orderByChild(Children.Table.Parent.text).equalTo(obj.Key).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                                    Children child = new Children();
+                                    Map<String, String> Values = new HashMap<>();
+                                    for (Children.Table T : Children.Table.values()) {
+                                        new Children().setbyName(child, T.name(), data.child(T.text).getValue().toString());
+                                    }
+                                    obj.childrens.add(child);
+
+                                }
+                                Items.add(obj);
+                                if (!iterator.hasNext()) {
+                                    listener.onSuccess(Items);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
                             }
                         });
                     }
@@ -562,45 +611,6 @@ public class FireBaseHelper {
 
         //region Getter & Setter
 
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getImage() {
-            return image;
-        }
-
-        public void setImage(String image) {
-            this.image = image;
-        }
-
-        public String getGender() {
-            return gender;
-        }
-
-        public void setGender(String gender) {
-            this.gender = gender;
-        }
-
-        public String getBirth() {
-            return birth;
-        }
-
-        public void setBirth(String birth) {
-            this.birth = birth;
-        }
-
-        public String getParent() {
-            return parent;
-        }
-
-        public void setParent(String parent) {
-            this.parent = parent;
-        }
 
 
         //endregion
