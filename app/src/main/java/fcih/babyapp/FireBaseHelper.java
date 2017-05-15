@@ -151,7 +151,7 @@ public class FireBaseHelper {
                         //}
                         //});
                     }
-                    if(dataSnapshot.getChildrenCount() == 0){
+                    if (dataSnapshot.getChildrenCount() == 0) {
                         listener.onSuccess(Items);
                     }
 
@@ -197,7 +197,7 @@ public class FireBaseHelper {
                         //}
                         //});
                     }
-                    if(dataSnapshot.getChildrenCount() == 0){
+                    if (dataSnapshot.getChildrenCount() == 0) {
                         listener.onSuccess(Items);
                     }
 
@@ -265,15 +265,16 @@ public class FireBaseHelper {
         public String Key;
         //ex: public String Column;
         public String email;
-        public String image_uri;
+        public String image;
         public String name;
         public String username;
-        public String type_id;
+        public String country;
+        public String birth;
+        public String city;
+        public String gender;
         //ex:public ForeignClass ForeignClass
-        public User_Types user_types;
 
         public Users() {
-            user_types = new User_Types();
             //ex ForeignClass = new ForeignClass();
         }
 
@@ -287,12 +288,12 @@ public class FireBaseHelper {
             this.email = email;
         }
 
-        public String getImage_uri() {
-            return image_uri;
+        public String getImage() {
+            return image;
         }
 
-        public void setImage_uri(String image_uri) {
-            this.image_uri = image_uri;
+        public void setImage(String image) {
+            this.image = image;
         }
 
         public String getName() {
@@ -303,12 +304,36 @@ public class FireBaseHelper {
             this.name = name;
         }
 
-        public String getType_id() {
-            return type_id;
+        public String getUsername() {
+            return username;
         }
 
-        public void setType_id(String type_id) {
-            this.type_id = type_id;
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getCountry() {
+            return country;
+        }
+
+        public void setCountry(String country) {
+            this.country = country;
+        }
+
+        public String getBirth() {
+            return birth;
+        }
+
+        public void setBirth(String birth) {
+            this.birth = birth;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
         }
 
 
@@ -362,10 +387,7 @@ public class FireBaseHelper {
                     //if no foreign key
                     //listener.onSuccess(obj);
                     //ex:
-                    user_types.Findbykey(obj.type_id, Data -> {
-                        obj.user_types = Data;
-                        listener.onSuccess(obj);
-                    });
+                    listener.onSuccess(obj);
                 }
 
                 @Override
@@ -393,15 +415,12 @@ public class FireBaseHelper {
                         }
                         //if no foreign key
 
-                        user_types.Findbykey(obj.type_id, Data -> {
-                            obj.user_types = Data;
-                            Items.add(obj);
-                            if (!iterator.hasNext()) {
-                                listener.onSuccess(Items);
-                            }
-                        });
+                        Items.add(obj);
+                        if (!iterator.hasNext()) {
+                            listener.onSuccess(Items);
+                        }
                     }
-                    if(dataSnapshot.getChildrenCount() == 0){
+                    if (dataSnapshot.getChildrenCount() == 0) {
                         listener.onSuccess(Items);
                     }
 
@@ -430,15 +449,11 @@ public class FireBaseHelper {
                             setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
                         }
                         //if no foreign key
-                        user_types.Findbykey(obj.type_id, Data -> {
-                            obj.user_types = Data;
-                            Items.add(obj);
-                            if (!iterator.hasNext()) {
-                                listener.onSuccess(Items);
-                            }
-                        });
+                        if (!iterator.hasNext()) {
+                            listener.onSuccess(Items);
+                        }
                     }
-                    if(dataSnapshot.getChildrenCount() == 0){
+                    if (dataSnapshot.getChildrenCount() == 0) {
                         listener.onSuccess(Items);
                     }
 
@@ -482,10 +497,13 @@ public class FireBaseHelper {
         public enum Table {
             //ex:Column("ColumnName"),
             Email("email"),
-            Image_uri("image_uri"),
+            Image("image"),
             Name("name"),
             Username("username"),
-            Type_id("type_id");
+            Country("country"),
+            City("city"),
+            Birth("birth"),
+            Gender("gender");
 
             public final String text;
 
@@ -501,21 +519,35 @@ public class FireBaseHelper {
     }
     //endregion
 
-    //region User_Types
-    public static class User_Types {
+    //region Children
+    public static class Children {
         //ex: private static final DatabaseReference Ref = myRootRef.child("TableName");
-        public static final DatabaseReference Ref = myRootRef.child("User_Types");
+        public static final DatabaseReference Ref = myRootRef.child("Children");
 
         public String Key;
         //ex: public String Column;
         public String name;
+        public String image;
+        public String gender;
+        public String birth;
+        public String parent;
         //ex:public ForeignClass ForeignClass
+        public Users Parent;
 
-        public User_Types() {
+        public Children() {
             //ex ForeignClass = new ForeignClass();
+            Parent = new Users();
         }
 
         //region Getter & Setter
+
+        public String getKey() {
+            return Key;
+        }
+
+        public void setKey(String key) {
+            Key = key;
+        }
 
         public String getName() {
             return name;
@@ -523,6 +555,38 @@ public class FireBaseHelper {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+
+        public String getGender() {
+            return gender;
+        }
+
+        public void setGender(String gender) {
+            this.gender = gender;
+        }
+
+        public String getBirth() {
+            return birth;
+        }
+
+        public void setBirth(String birth) {
+            this.birth = birth;
+        }
+
+        public String getParent() {
+            return parent;
+        }
+
+        public void setParent(String parent) {
+            this.parent = parent;
         }
 
 
@@ -563,26 +627,21 @@ public class FireBaseHelper {
             Ref.child(key).setValue(Values);
         }
 
-        public void Findbykey(String key, final OnGetDataListener<User_Types> listener) {
+        public void Findbykey(String key, final OnGetDataListener<Children> listener) {
             Ref.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     //ex: final ClassName obj = new Teams();
-                    final User_Types obj = new User_Types();
+                    final Children obj = new Children();
                     obj.Key = dataSnapshot.getKey();
                     for (Table T : Table.values()) {
                         setbyName(obj, T.name(), dataSnapshot.child(T.text).getValue().toString());
                     }
                     //if no foreign key
-                    listener.onSuccess(obj);
-                    //ex:
-                    //ForeignClass.findbykey(obj.ForeignKey, new OnGetDataListener() {
-                    //@Override
-                    //public void onSuccess(Object Data) {
-                    //    obj.ForeignClass = (FireBaseHelper.ForeignClass) Data;
-                    //    listener.onSuccess(obj);
-                    //}
-                    //});
+                    obj.Parent.Findbykey(obj.Key, Data -> {
+                        obj.Parent = Data;
+                        listener.onSuccess(obj);
+                    });
                 }
 
                 @Override
@@ -592,9 +651,9 @@ public class FireBaseHelper {
             });
         }
 
-        public void Where(Table table, String Value, final OnGetDataListListener<User_Types> listener) {
+        public void Where(Table table, String Value, final OnGetDataListListener<Children> listener) {
             //ex: final List<ClassName> Items = new ArrayList<>();
-            final List<User_Types> Items = new ArrayList<>();
+            final List<Children> Items = new ArrayList<>();
             Query query = Ref.orderByChild(table.text).equalTo(Value);
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -603,29 +662,20 @@ public class FireBaseHelper {
                     while (iterator.hasNext()) {
                         DataSnapshot postSnapshot = (DataSnapshot) iterator.next();
                         //ex: final ClassName obj = new Teams();
-                        final User_Types obj = new User_Types();
+                        final Children obj = new Children();
                         obj.Key = postSnapshot.getKey();
                         for (Table T : Table.values()) {
                             setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
                         }
-                        //if no foreign key
-                        Items.add(obj);
-                        if (!iterator.hasNext()) {
-                            listener.onSuccess(Items);
-                        }
-                        //ex:
-                        //ForeignClass.findbykey(obj.ForeignKey, new OnGetDataListener() {
-                        //@Override
-                        //public void onSuccess(Object Data) {
-                        //    obj.ForeignClass = (FireBaseHelper.ForeignClass) Data;
-                        //    Items.add(obj);
-                        //if (!iterator.hasNext()) {
-                        //    listener.onSuccess(Items);
-                        //}
-                        //}
-                        //});
+                        obj.Parent.Findbykey(obj.Key, Data -> {
+                            obj.Parent = Data;
+                            Items.add(obj);
+                            if (!iterator.hasNext()) {
+                                listener.onSuccess(Items);
+                            }
+                        });
                     }
-                    if(dataSnapshot.getChildrenCount() == 0){
+                    if (dataSnapshot.getChildrenCount() == 0) {
                         listener.onSuccess(Items);
                     }
 
@@ -638,9 +688,9 @@ public class FireBaseHelper {
             });
         }
 
-        public void Tolist(final OnGetDataListListener<User_Types> listener) {
+        public void Tolist(final OnGetDataListListener<Children> listener) {
             //ex: final List<ClassName> Items = new ArrayList<>();
-            final List<User_Types> Items = new ArrayList<>();
+            final List<Children> Items = new ArrayList<>();
             Ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(final DataSnapshot dataSnapshot) {
@@ -648,29 +698,21 @@ public class FireBaseHelper {
                     while (iterator.hasNext()) {
                         DataSnapshot postSnapshot = (DataSnapshot) iterator.next();
                         //ex: final ClassName obj = new Teams();
-                        final User_Types obj = new User_Types();
+                        final Children obj = new Children();
                         obj.Key = postSnapshot.getKey();
                         for (Table T : Table.values()) {
                             setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
                         }
                         //if no foreign key
-                        Items.add(obj);
-                        if (!iterator.hasNext()) {
-                            listener.onSuccess(Items);
-                        }
-                        //ex:
-                        //ForeignClass.findbykey(obj.ForeignKey, new OnGetDataListener() {
-                        //@Override
-                        //public void onSuccess(Object Data) {
-                        //    obj.ForeignClass = (FireBaseHelper.ForeignClass) Data;
-                        //    Items.add(obj);
-                        //if (!iterator.hasNext()) {
-                        //    listener.onSuccess(Items);
-                        //}
-                        //}
-                        //});
+                        obj.Parent.Findbykey(obj.Key, Data -> {
+                            obj.Parent = Data;
+                            Items.add(obj);
+                            if (!iterator.hasNext()) {
+                                listener.onSuccess(Items);
+                            }
+                        });
                     }
-                    if(dataSnapshot.getChildrenCount() == 0){
+                    if (dataSnapshot.getChildrenCount() == 0) {
                         listener.onSuccess(Items);
                     }
 
@@ -687,7 +729,7 @@ public class FireBaseHelper {
             Ref.child(Key).removeValue();
         }
 
-        private String getbyName(User_Types obj, String Name) {
+        private String getbyName(Children obj, String Name) {
             String Value = "";
             try {
                 Method method = getClass().getDeclaredMethod("get" + Name);
@@ -700,7 +742,7 @@ public class FireBaseHelper {
             return Value;
         }
 
-        private void setbyName(User_Types obj, String Name, String Value) {
+        private void setbyName(Children obj, String Name, String Value) {
             try {
                 Class[] cArg = new Class[1];
                 cArg[0] = String.class;
@@ -712,8 +754,13 @@ public class FireBaseHelper {
         }
 
         public enum Table {
+            //TODO:Add Columns
             //ex:Column("ColumnName"),
-            Name("name");
+            Name("name"),
+            Image("image"),
+            Gender("gender"),
+            Birth("birth"),
+            Parent("parent");
 
             public final String text;
 
@@ -728,5 +775,7 @@ public class FireBaseHelper {
         }
     }
     //endregion
+
+
 
 }
