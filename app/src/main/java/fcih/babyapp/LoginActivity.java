@@ -164,7 +164,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Toast.makeText(LoginActivity.this, "TEST Login Success", Toast.LENGTH_SHORT).show();
                             //startActivity(new Intent(LoginActivity.this, BaseActivity.class));
                             //finish();
-                            Intent mainIntent = new Intent(LoginActivity.this, BaseActivity.class);
+                            Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                             mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(mainIntent);
                             finish();
@@ -198,8 +198,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             FUSER.name = mregister_fullnameView.getText().toString();
                             FUSER.username = mregister_usernameView.getText().toString();
                             FUSER.email = user.getEmail();
-                            FUSER.image_uri = "";
-                            FUSER.type_id = DESIGNER_TYPE;
+                            FUSER.image = "";
+                            FUSER.birth = "";
+                            FUSER.gender = "";
+                            FUSER.city = "";
+                            FUSER.country = "";
                             FUSER.Add(user.getUid());
                             showProgress(false);
                             //startActivity(new Intent(LoginActivity.this, BaseActivity.class));

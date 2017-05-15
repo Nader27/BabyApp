@@ -272,10 +272,13 @@ public class FireBaseHelper {
         public String birth;
         public String city;
         public String gender;
+
+        public List<Children> childrens;
         //ex:public ForeignClass ForeignClass
 
         public Users() {
             //ex ForeignClass = new ForeignClass();
+            childrens = new ArrayList<>();
         }
 
         //region Getter & Setter
@@ -395,7 +398,10 @@ public class FireBaseHelper {
                     //if no foreign key
                     //listener.onSuccess(obj);
                     //ex:
-                    listener.onSuccess(obj);
+                    new Children().Where(Children.Table.Parent, obj.Key, Data -> {
+                        obj.childrens = Data;
+                        listener.onSuccess(obj);
+                    });
                 }
 
                 @Override
@@ -422,11 +428,14 @@ public class FireBaseHelper {
                             setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
                         }
                         //if no foreign key
+                        new Children().Where(Children.Table.Parent, obj.Key, Data -> {
+                            obj.childrens = Data;
+                            Items.add(obj);
+                            if (!iterator.hasNext()) {
+                                listener.onSuccess(Items);
+                            }
+                        });
 
-                        Items.add(obj);
-                        if (!iterator.hasNext()) {
-                            listener.onSuccess(Items);
-                        }
                     }
                     if (dataSnapshot.getChildrenCount() == 0) {
                         listener.onSuccess(Items);
@@ -457,9 +466,13 @@ public class FireBaseHelper {
                             setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
                         }
                         //if no foreign key
-                        if (!iterator.hasNext()) {
-                            listener.onSuccess(Items);
-                        }
+                        new Children().Where(Children.Table.Parent, obj.Key, Data -> {
+                            obj.childrens = Data;
+                            Items.add(obj);
+                            if (!iterator.hasNext()) {
+                                listener.onSuccess(Items);
+                            }
+                        });
                     }
                     if (dataSnapshot.getChildrenCount() == 0) {
                         listener.onSuccess(Items);
