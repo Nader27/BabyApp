@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class AboutFragment extends Fragment {
-    private TextView about_username, about_email, about_gender, about_child_num, about_country, about_birthofdate;
+    private TextView about_username, about_email, about_gender, about_child_num, about_country, about_birthofdate, about_name, about_city;
     private FirebaseAuth mAuth;
 
     public AboutFragment() {
@@ -28,23 +28,28 @@ public class AboutFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_about, container, false);
-        about_username = (TextView) v.findViewById(R.id.nameabout);
+        about_name = (TextView) v.findViewById(R.id.nameabout);
         about_email=(TextView)v.findViewById(R.id.emailabout);
         about_gender=(TextView)v.findViewById(R.id.genderabout);
         about_child_num=(TextView)v.findViewById(R.id.childnumabout);
         about_country=(TextView)v.findViewById(R.id.countryabout);
         about_birthofdate=(TextView)v.findViewById(R.id.birthabout);
+        about_username = (TextView) v.findViewById(R.id.usernameabout);
+        about_city = (TextView) v.findViewById(R.id.cityabout);
 
 
         mAuth=FirebaseAuth.getInstance();
         String uid=mAuth.getCurrentUser().getUid();
 
         new FireBaseHelper.Users().Findbykey(uid, Data -> {
-            about_username.setText(Data.name);
+            about_name.setText(Data.name);
             about_email.setText(Data.email);
             about_country.setText(Data.country);
             about_birthofdate.setText(Data.birth);
             about_gender.setText(Data.gender);
+            about_username.setText(Data.username);
+            about_city.setText(Data.city);
+            about_child_num.setText(Data.childrens.size());
         });
 
 
