@@ -336,6 +336,14 @@ public class FireBaseHelper {
             this.city = city;
         }
 
+        public String getGender() {
+            return gender;
+        }
+
+        public void setGender(String gender) {
+            this.gender = gender;
+        }
+
 
         //endregion
 
@@ -540,14 +548,6 @@ public class FireBaseHelper {
         }
 
         //region Getter & Setter
-
-        public String getKey() {
-            return Key;
-        }
-
-        public void setKey(String key) {
-            Key = key;
-        }
 
         public String getName() {
             return name;
@@ -776,6 +776,732 @@ public class FireBaseHelper {
     }
     //endregion
 
+    //region Posts
+    public static class Posts {
+        //ex: private static final DatabaseReference Ref = myRootRef.child("TableName");
+        public static final DatabaseReference Ref = myRootRef.child("Posts");
 
+        public String Key;
+        //ex: public String Column;
+        public String date;
+        public String description;
+        public String image;
+        public String uid;
+        //ex:public ForeignClass ForeignClass
+        public Users Users;
+
+        public Posts() {
+            //ex ForeignClass = new ForeignClass();
+            Users = new Users();
+        }
+
+        //region Getter & Setter
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+
+        public String getUid() {
+            return uid;
+        }
+
+        public void setUid(String uid) {
+            this.uid = uid;
+        }
+
+
+        //endregion
+
+        public String Add() {
+            Map<String, String> Values = new HashMap<>();
+            for (Table T : Table.values()) {
+                Values.put(T.text, getbyName(this, T.name()));
+            }
+            DatabaseReference myref = Ref.push();
+            myref.setValue(Values);
+            return Key = myref.getKey();
+
+        }
+
+        public void Add(String Key) {
+            Map<String, String> Values = new HashMap<>();
+            for (Table T : Table.values()) {
+                Values.put(T.text, getbyName(this, T.name()));
+            }
+            Ref.child(Key).setValue(Values);
+        }
+
+        public void Update() {
+            Map<String, String> Values = new HashMap<>();
+            for (Table T : Table.values()) {
+                Values.put(T.text, getbyName(this, T.name()));
+            }
+            Ref.child(Key).setValue(Values);
+        }
+
+        public void Update(String key) {
+            Map<String, String> Values = new HashMap<>();
+            for (Table T : Table.values()) {
+                Values.put(T.text, getbyName(this, T.name()));
+            }
+            Ref.child(key).setValue(Values);
+        }
+
+        public void Findbykey(String key, final OnGetDataListener<Posts> listener) {
+            Ref.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    //ex: final ClassName obj = new Teams();
+                    final Posts obj = new Posts();
+                    obj.Key = dataSnapshot.getKey();
+                    for (Table T : Table.values()) {
+                        setbyName(obj, T.name(), dataSnapshot.child(T.text).getValue().toString());
+                    }
+                    //if no foreign key
+                    obj.Users.Findbykey(obj.Key, Data -> {
+                        obj.Users = Data;
+                        listener.onSuccess(obj);
+                    });
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        public void Where(Table table, String Value, final OnGetDataListListener<Posts> listener) {
+            //ex: final List<ClassName> Items = new ArrayList<>();
+            final List<Posts> Items = new ArrayList<>();
+            Query query = Ref.orderByChild(table.text).equalTo(Value);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    final Iterator iterator = dataSnapshot.getChildren().iterator();
+                    while (iterator.hasNext()) {
+                        DataSnapshot postSnapshot = (DataSnapshot) iterator.next();
+                        //ex: final ClassName obj = new Teams();
+                        final Posts obj = new Posts();
+                        obj.Key = postSnapshot.getKey();
+                        for (Table T : Table.values()) {
+                            setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
+                        }
+                        obj.Users.Findbykey(obj.Key, Data -> {
+                            obj.Users = Data;
+                            Items.add(obj);
+                            if (!iterator.hasNext()) {
+                                listener.onSuccess(Items);
+                            }
+                        });
+                    }
+                    if (dataSnapshot.getChildrenCount() == 0) {
+                        listener.onSuccess(Items);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        public void Tolist(final OnGetDataListListener<Posts> listener) {
+            //ex: final List<ClassName> Items = new ArrayList<>();
+            final List<Posts> Items = new ArrayList<>();
+            Ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(final DataSnapshot dataSnapshot) {
+                    final Iterator iterator = dataSnapshot.getChildren().iterator();
+                    while (iterator.hasNext()) {
+                        DataSnapshot postSnapshot = (DataSnapshot) iterator.next();
+                        //ex: final ClassName obj = new Teams();
+                        final Posts obj = new Posts();
+                        obj.Key = postSnapshot.getKey();
+                        for (Table T : Table.values()) {
+                            setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
+                        }
+                        //if no foreign key
+                        obj.Users.Findbykey(obj.Key, Data -> {
+                            obj.Users = Data;
+                            Items.add(obj);
+                            if (!iterator.hasNext()) {
+                                listener.onSuccess(Items);
+                            }
+                        });
+                    }
+                    if (dataSnapshot.getChildrenCount() == 0) {
+                        listener.onSuccess(Items);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        public void Remove(String Key) {
+            Ref.child(Key).removeValue();
+        }
+
+        private String getbyName(Posts obj, String Name) {
+            String Value = "";
+            try {
+                Method method = getClass().getDeclaredMethod("get" + Name);
+                Object value = method.invoke(obj);
+                Value = (String) value;
+
+            } catch (SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            return Value;
+        }
+
+        private void setbyName(Posts obj, String Name, String Value) {
+            try {
+                Class[] cArg = new Class[1];
+                cArg[0] = String.class;
+                Method method = getClass().getDeclaredMethod("set" + Name, cArg);
+                method.invoke(obj, Value);
+            } catch (SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public enum Table {
+            //TODO:Add Columns
+            //ex:Column("ColumnName"),
+            Date("date"),
+            Image("image"),
+            Description("description"),
+            Uid("uid");
+
+            public final String text;
+
+            Table(final String text) {
+                this.text = text;
+            }
+
+            @Override
+            public String toString() {
+                return text;
+            }
+        }
+    }
+    //endregion
+
+    //region Likes
+    public static class Likes {
+        //ex: private static final DatabaseReference Ref = myRootRef.child("TableName");
+        public static final DatabaseReference Ref = myRootRef.child("Likes");
+
+        public String Key;
+        //ex: public String Column;
+        public String uid;
+        public String postid;
+        public Users User;
+        public Posts Post;
+
+        public Likes() {
+
+            User = new Users();
+            Post = new Posts();
+        }
+
+        //region Getter & Setter
+
+        public String getUid() {
+            return uid;
+        }
+
+        public void setUid(String uid) {
+            this.uid = uid;
+        }
+
+        public String getPostid() {
+            return postid;
+        }
+
+        public void setPostid(String postid) {
+            this.postid = postid;
+        }
+
+
+        //endregion
+
+        public String Add() {
+            Map<String, String> Values = new HashMap<>();
+            for (Table T : Table.values()) {
+                Values.put(T.text, getbyName(this, T.name()));
+            }
+            DatabaseReference myref = Ref.push();
+            myref.setValue(Values);
+            return Key = myref.getKey();
+
+        }
+
+        public void Add(String Key) {
+            Map<String, String> Values = new HashMap<>();
+            for (Table T : Table.values()) {
+                Values.put(T.text, getbyName(this, T.name()));
+            }
+            Ref.child(Key).setValue(Values);
+        }
+
+        public void Update() {
+            Map<String, String> Values = new HashMap<>();
+            for (Table T : Table.values()) {
+                Values.put(T.text, getbyName(this, T.name()));
+            }
+            Ref.child(Key).setValue(Values);
+        }
+
+        public void Update(String key) {
+            Map<String, String> Values = new HashMap<>();
+            for (Table T : Table.values()) {
+                Values.put(T.text, getbyName(this, T.name()));
+            }
+            Ref.child(key).setValue(Values);
+        }
+
+        public void Findbykey(String key, final OnGetDataListener<Likes> listener) {
+            Ref.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    //ex: final ClassName obj = new Teams();
+                    final Likes obj = new Likes();
+                    obj.Key = dataSnapshot.getKey();
+                    for (Table T : Table.values()) {
+                        setbyName(obj, T.name(), dataSnapshot.child(T.text).getValue().toString());
+                    }
+
+                    obj.Post.Findbykey(obj.postid, Data -> {
+                        obj.Post = Data;
+                        obj.User.Findbykey(obj.uid, Data1 -> {
+                            obj.User = Data1;
+                            listener.onSuccess(obj);
+                        });
+                    });
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        public void Where(Table table, String Value, final OnGetDataListListener<Likes> listener) {
+            //ex: final List<ClassName> Items = new ArrayList<>();
+            final List<Likes> Items = new ArrayList<>();
+            Query query = Ref.orderByChild(table.text).equalTo(Value);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    final Iterator iterator = dataSnapshot.getChildren().iterator();
+                    while (iterator.hasNext()) {
+                        DataSnapshot postSnapshot = (DataSnapshot) iterator.next();
+                        //ex: final ClassName obj = new Teams();
+                        final Likes obj = new Likes();
+                        obj.Key = postSnapshot.getKey();
+                        for (Table T : Table.values()) {
+                            setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
+                        }
+                        obj.Post.Findbykey(obj.postid, Data -> {
+                            obj.Post = Data;
+                            obj.User.Findbykey(obj.uid, Data1 -> {
+                                obj.User = Data1;
+                                Items.add(obj);
+                                if (!iterator.hasNext()) {
+                                    listener.onSuccess(Items);
+                                }
+                            });
+                        });
+                    }
+                    if (dataSnapshot.getChildrenCount() == 0) {
+                        listener.onSuccess(Items);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        public void Tolist(final OnGetDataListListener<Likes> listener) {
+            //ex: final List<ClassName> Items = new ArrayList<>();
+            final List<Likes> Items = new ArrayList<>();
+            Ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(final DataSnapshot dataSnapshot) {
+                    final Iterator iterator = dataSnapshot.getChildren().iterator();
+                    while (iterator.hasNext()) {
+                        DataSnapshot postSnapshot = (DataSnapshot) iterator.next();
+                        //ex: final ClassName obj = new Teams();
+                        final Likes obj = new Likes();
+                        obj.Key = postSnapshot.getKey();
+                        for (Table T : Table.values()) {
+                            setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
+                        }
+                        //if no foreign key
+                        obj.Post.Findbykey(obj.postid, Data -> {
+                            obj.Post = Data;
+                            obj.User.Findbykey(obj.uid, Data1 -> {
+                                obj.User = Data1;
+                                Items.add(obj);
+                                if (!iterator.hasNext()) {
+                                    listener.onSuccess(Items);
+                                }
+                            });
+                        });
+                    }
+                    if (dataSnapshot.getChildrenCount() == 0) {
+                        listener.onSuccess(Items);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        public void Remove(String Key) {
+            Ref.child(Key).removeValue();
+        }
+
+        private String getbyName(Likes obj, String Name) {
+            String Value = "";
+            try {
+                Method method = getClass().getDeclaredMethod("get" + Name);
+                Object value = method.invoke(obj);
+                Value = (String) value;
+
+            } catch (SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            return Value;
+        }
+
+        private void setbyName(Likes obj, String Name, String Value) {
+            try {
+                Class[] cArg = new Class[1];
+                cArg[0] = String.class;
+                Method method = getClass().getDeclaredMethod("set" + Name, cArg);
+                method.invoke(obj, Value);
+            } catch (SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public enum Table {
+            //TODO:Add Columns
+            //ex:Column("ColumnName"),
+            Uid("uid"),
+            Postid("postid");
+
+            public final String text;
+
+            Table(final String text) {
+                this.text = text;
+            }
+
+            @Override
+            public String toString() {
+                return text;
+            }
+        }
+    }
+    //endregion
+
+    //region Needs
+    public static class Needs {
+        //ex: private static final DatabaseReference Ref = myRootRef.child("TableName");
+        public static final DatabaseReference Ref = myRootRef.child("Needs");
+
+        public String Key;
+        //ex: public String Column;
+        public String uid;
+        public String description;
+        public String image;
+        public String status;
+        public String childid;
+
+        public Children Child;
+        public Users User;
+
+        public Needs() {
+
+            User = new Users();
+            Child = new Children();
+        }
+
+        //region Getter & Setter
+
+        public String getUid() {
+            return uid;
+        }
+
+        public void setUid(String uid) {
+            this.uid = uid;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getChildid() {
+            return childid;
+        }
+
+        public void setChildid(String childid) {
+            this.childid = childid;
+        }
+
+
+        //endregion
+
+        public String Add() {
+            Map<String, String> Values = new HashMap<>();
+            for (Table T : Table.values()) {
+                Values.put(T.text, getbyName(this, T.name()));
+            }
+            DatabaseReference myref = Ref.push();
+            myref.setValue(Values);
+            return Key = myref.getKey();
+
+        }
+
+        public void Add(String Key) {
+            Map<String, String> Values = new HashMap<>();
+            for (Table T : Table.values()) {
+                Values.put(T.text, getbyName(this, T.name()));
+            }
+            Ref.child(Key).setValue(Values);
+        }
+
+        public void Update() {
+            Map<String, String> Values = new HashMap<>();
+            for (Table T : Table.values()) {
+                Values.put(T.text, getbyName(this, T.name()));
+            }
+            Ref.child(Key).setValue(Values);
+        }
+
+        public void Update(String key) {
+            Map<String, String> Values = new HashMap<>();
+            for (Table T : Table.values()) {
+                Values.put(T.text, getbyName(this, T.name()));
+            }
+            Ref.child(key).setValue(Values);
+        }
+
+        public void Findbykey(String key, final OnGetDataListener<Needs> listener) {
+            Ref.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    //ex: final ClassName obj = new Teams();
+                    final Needs obj = new Needs();
+                    obj.Key = dataSnapshot.getKey();
+                    for (Table T : Table.values()) {
+                        setbyName(obj, T.name(), dataSnapshot.child(T.text).getValue().toString());
+                    }
+
+                    obj.Child.Findbykey(obj.childid, Data -> {
+                        obj.Child = Data;
+                        obj.User.Findbykey(obj.uid, Data1 -> {
+                            obj.User = Data1;
+                            listener.onSuccess(obj);
+                        });
+                    });
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        public void Where(Table table, String Value, final OnGetDataListListener<Needs> listener) {
+            //ex: final List<ClassName> Items = new ArrayList<>();
+            final List<Needs> Items = new ArrayList<>();
+            Query query = Ref.orderByChild(table.text).equalTo(Value);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    final Iterator iterator = dataSnapshot.getChildren().iterator();
+                    while (iterator.hasNext()) {
+                        DataSnapshot postSnapshot = (DataSnapshot) iterator.next();
+                        //ex: final ClassName obj = new Teams();
+                        final Needs obj = new Needs();
+                        obj.Key = postSnapshot.getKey();
+                        for (Table T : Table.values()) {
+                            setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
+                        }
+                        obj.Child.Findbykey(obj.childid, Data -> {
+                            obj.Child = Data;
+                            obj.User.Findbykey(obj.uid, Data1 -> {
+                                obj.User = Data1;
+                                Items.add(obj);
+                                if (!iterator.hasNext()) {
+                                    listener.onSuccess(Items);
+                                }
+                            });
+                        });
+                    }
+                    if (dataSnapshot.getChildrenCount() == 0) {
+                        listener.onSuccess(Items);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        public void Tolist(final OnGetDataListListener<Needs> listener) {
+            //ex: final List<ClassName> Items = new ArrayList<>();
+            final List<Needs> Items = new ArrayList<>();
+            Ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(final DataSnapshot dataSnapshot) {
+                    final Iterator iterator = dataSnapshot.getChildren().iterator();
+                    while (iterator.hasNext()) {
+                        DataSnapshot postSnapshot = (DataSnapshot) iterator.next();
+                        //ex: final ClassName obj = new Teams();
+                        final Needs obj = new Needs();
+                        obj.Key = postSnapshot.getKey();
+                        for (Table T : Table.values()) {
+                            setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
+                        }
+                        //if no foreign key
+                        obj.Child.Findbykey(obj.childid, Data -> {
+                            obj.Child = Data;
+                            obj.User.Findbykey(obj.uid, Data1 -> {
+                                obj.User = Data1;
+                                Items.add(obj);
+                                if (!iterator.hasNext()) {
+                                    listener.onSuccess(Items);
+                                }
+                            });
+                        });
+                    }
+                    if (dataSnapshot.getChildrenCount() == 0) {
+                        listener.onSuccess(Items);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        public void Remove(String Key) {
+            Ref.child(Key).removeValue();
+        }
+
+        private String getbyName(Needs obj, String Name) {
+            String Value = "";
+            try {
+                Method method = getClass().getDeclaredMethod("get" + Name);
+                Object value = method.invoke(obj);
+                Value = (String) value;
+
+            } catch (SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            return Value;
+        }
+
+        private void setbyName(Needs obj, String Name, String Value) {
+            try {
+                Class[] cArg = new Class[1];
+                cArg[0] = String.class;
+                Method method = getClass().getDeclaredMethod("set" + Name, cArg);
+                method.invoke(obj, Value);
+            } catch (SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public enum Table {
+            //TODO:Add Columns
+            //ex:Column("ColumnName"),
+            Uid("uid"),
+            Description("description"),
+            Image("image"),
+            Status("status"),
+            Childid("childid");
+
+            public final String text;
+
+            Table(final String text) {
+                this.text = text;
+            }
+
+            @Override
+            public String toString() {
+                return text;
+            }
+        }
+    }
+    //endregion
 
 }
