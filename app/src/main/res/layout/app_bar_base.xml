@@ -74,7 +74,7 @@
         app:targetHeight="40dp"
         app:targetWidth="40dp"
         app:targetX="43dp"
-        app:targetY="5dp" />
+        app:targetY="-19dp" />
 
     <TextView
         android:id="@+id/toolbar_user_name"
@@ -92,7 +92,7 @@
         app:layout_behavior="com.zoonref.SimpleViewBehavior"
         app:targetAlpha="1"
         app:targetX="88dp"
-        app:targetY="5dp" />
+        app:targetY="-25dp" />
 
     <ProgressBar
         android:id="@+id/progress"

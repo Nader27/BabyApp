@@ -1,5 +1,6 @@
 package fcih.babyapp;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,27 +10,37 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 public class HomeFragment extends Fragment {
 
+    private static final String ARG_PARAM = "USERID";
+    private static HomeFragment fragment;
+    public ProfileFragment profile;
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ProgressBar mProgressView;
-    private ViewGroup mContainer;
-
+    private String UserID;
+    private ProgressDialog progressDialog;
 
 
     public HomeFragment() {
     }
 
-    public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
+    public static HomeFragment newInstance(String uid) {
+        if (fragment == null)
+            fragment = new HomeFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM, uid);
+        fragment.setArguments(args);
         return fragment;
     }
 
-    public void showProgress(final boolean show) {
-        mContainer.setVisibility(show ? View.GONE : View.VISIBLE);
-        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            UserID = getArguments().getString(ARG_PARAM);
+        }
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("loading");
     }
 
     @Override
@@ -38,20 +49,16 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         getActivity().findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
-        mProgressView = (ProgressBar) getActivity().findViewById(R.id.progress);
-
-        mContainer = container;
-        //showProgress(true);
         ViewPager mViewPager = (ViewPager) view.findViewById(R.id.container);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getActivity().getSupportFragmentManager());
         // Set up the ViewPager with the sections adapter.
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
+        mViewPager.setCurrentItem(1);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setVisibility(View.VISIBLE);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setupWithViewPager(mViewPager);
-
         return view;
 
 
@@ -68,13 +75,14 @@ public class HomeFragment extends Fragment {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            switch (position){
+            switch (position) {
                 case 0:
-                    return  AboutFragment.newInstance();
+                    return AboutFragment.newInstance(UserID);
                 case 1:
-                    return GalleryFragment.newInstance();
+                    return GalleryFragment.newInstance(UserID);
                 case 2:
-                    return ProfileFragment.newInstance();
+                    profile = ProfileFragment.newInstance(UserID);
+                    return profile;
             }
             return null;
         }
@@ -86,13 +94,13 @@ public class HomeFragment extends Fragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position){
+            switch (position) {
                 case 0:
                     return "About";
                 case 1:
                     return "Gallery";
                 case 2:
-                    return "Profile";
+                    return "Children";
             }
             return null;
         }

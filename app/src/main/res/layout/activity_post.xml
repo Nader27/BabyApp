@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fcih.babyapp.PostActivity"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    tools:context="fcih.babyapp.PostActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/Next"
@@ -40,19 +40,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <FrameLayout
             android:id="@+id/frame"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.6">
 
             <ImageView
                 android:id="@+id/post_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 app:srcCompat="@drawable/deafult_user_image" />
 
             <EditText

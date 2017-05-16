@@ -30,22 +30,25 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static boolean WAITINGFORIMAGE = false;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FireBaseHelper.Users CurrentUser;
     private TextView barusername;
+    private String UserID;
+    private HomeFragment home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         mAuth = FirebaseAuth.getInstance();
-        if(mAuth.getCurrentUser() == null){
+        if (mAuth.getCurrentUser() == null) {
             Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
             loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(loginIntent);
             finish();
-        }else {
+        } else {
             mAuthListener = firebaseAuth -> {
                 if (firebaseAuth.getCurrentUser() == null) {
                     Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -69,6 +72,7 @@ public class BaseActivity extends AppCompatActivity
 
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
+            UserID = mAuth.getCurrentUser().getUid();
             onNavigationItemSelected(navigationView.getMenu().getItem(0));
         }
     }
@@ -177,24 +181,33 @@ public class BaseActivity extends AppCompatActivity
         }
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == RESULT_OK && WAITINGFORIMAGE) {
             Uri imageUri = CropImage.getPickImageResultUri(this, data);
             CropImage.activity(imageUri).setCropShape(CropImageView.CropShape.RECTANGLE).setFixAspectRatio(true)
                     .start(this);
-        } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+        } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && WAITINGFORIMAGE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
-                Intent intent = new Intent(BaseActivity.this,PostActivity.class);
+                Intent intent = new Intent(BaseActivity.this, PostActivity.class);
                 intent.setData(resultUri);
                 startActivity(intent);
+                WAITINGFORIMAGE = false;
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Toast.makeText(getApplicationContext(),result.getError().getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), result.getError().getMessage(), Toast.LENGTH_LONG).show();
+                WAITINGFORIMAGE = false;
             }
+        } else if (requestCode == 0) {
+            WAITINGFORIMAGE = false;
+        } else {
+            ProfileFragment fragment = home.profile;
+            if (fragment != null)
+                fragment.onActivityResult(requestCode, resultCode, data);
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -218,13 +231,15 @@ public class BaseActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_home) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.Content, HomeFragment.newInstance()).commit();
+            home = HomeFragment.newInstance(UserID);
+            getSupportFragmentManager().beginTransaction().replace(R.id.Content, home).commit();
         } else if (id == R.id.nav_account) {
 
         } else if (id == R.id.nav_notifications) {
 
         } else if (id == R.id.nav_camera) {
             CropImage.startPickImageActivity(this);
+            WAITINGFORIMAGE = true;
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_logout) {

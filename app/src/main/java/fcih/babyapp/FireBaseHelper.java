@@ -602,15 +602,54 @@ public class FireBaseHelper {
         public String birth;
         public String parent;
         //ex:public ForeignClass ForeignClass
-        public Users Parent;
+        public Users users;
 
         public Children() {
             //ex ForeignClass = new ForeignClass();
-            Parent = new Users();
+            users = new Users();
         }
 
         //region Getter & Setter
 
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+
+        public String getGender() {
+            return gender;
+        }
+
+        public void setGender(String gender) {
+            this.gender = gender;
+        }
+
+        public String getBirth() {
+            return birth;
+        }
+
+        public void setBirth(String birth) {
+            this.birth = birth;
+        }
+
+        public String getParent() {
+            return parent;
+        }
+
+        public void setParent(String parent) {
+            this.parent = parent;
+        }
 
 
         //endregion
@@ -661,8 +700,8 @@ public class FireBaseHelper {
                         setbyName(obj, T.name(), dataSnapshot.child(T.text).getValue().toString());
                     }
                     //if no foreign key
-                    obj.Parent.Findbykey(obj.Key, Data -> {
-                        obj.Parent = Data;
+                    obj.users.Findbykey(obj.parent, Data -> {
+                        obj.users = Data;
                         listener.onSuccess(obj);
                     });
                 }
@@ -690,8 +729,8 @@ public class FireBaseHelper {
                         for (Table T : Table.values()) {
                             setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
                         }
-                        obj.Parent.Findbykey(obj.Key, Data -> {
-                            obj.Parent = Data;
+                        obj.users.Findbykey(obj.parent, Data -> {
+                            obj.users = Data;
                             Items.add(obj);
                             if (!iterator.hasNext()) {
                                 listener.onSuccess(Items);
@@ -727,8 +766,8 @@ public class FireBaseHelper {
                             setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
                         }
                         //if no foreign key
-                        obj.Parent.Findbykey(obj.Key, Data -> {
-                            obj.Parent = Data;
+                        obj.users.Findbykey(obj.parent, Data -> {
+                            obj.users = Data;
                             Items.add(obj);
                             if (!iterator.hasNext()) {
                                 listener.onSuccess(Items);

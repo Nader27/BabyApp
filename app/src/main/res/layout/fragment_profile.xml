@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="fcih.babyapp.ProfileFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/add_baby"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/transparency"
+            android:gravity="center"
+            android:text="Add baby"
+            android:textColor="@color/button_white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/addbabyform"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <FrameLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/baby_add_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/deafult_user_image"
+                    app:riv_border_color="@color/Dark_pink"
+                    app:riv_border_width="3dip"
+                    app:riv_corner_radius="35dip"
+                    app:riv_mutate_background="true"
+                    app:riv_oval="true"
+                    app:riv_tile_mode="clamp" />
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="top|right"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@android:drawable/ic_input_add"
+                    app:riv_border_color="#000"
+                    app:riv_border_width="1dip"
+                    app:riv_corner_radius="35dip"
+                    app:riv_mutate_background="true"
+                    app:riv_oval="true"
+                    app:riv_tile_mode="clamp" />
+
+            </FrameLayout>
+
+            <EditText
+                android:id="@+id/baby_add_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundedtop"
+                android:hint="Name"
+                android:inputType="text"
+                android:padding="18dp"
+                android:textColor="@color/white_text"
+                android:textColorHint="@color/white_text"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/baby_add_birth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/grey_bg"
+                android:padding="18dp"
+                android:text="_ / _ / _"
+                android:textColor="@color/white_text"
+                android:textSize="15sp" />
+
+            <Spinner
+                android:id="@+id/baby_add_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundedbot"
+                android:padding="25dp"
+                android:textColor="@color/white_text"
+                android:textSize="15sp" />
+
+
+            <Button
+                android:id="@+id/add_baby_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/roundedwhite"
+                android:gravity="center"
+                android:text="Add Baby"
+                android:textColor="@color/button_grey"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/Cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/transparency"
+                android:gravity="center"
+                android:text="Cancel"
+                android:textColor="@color/button_white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
