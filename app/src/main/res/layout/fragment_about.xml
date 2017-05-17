@@ -26,7 +26,7 @@
                 android:maxLines="1"
                 android:padding="15dp"
                 android:text="@string/full_name"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="14sp" />
 
             <me.grantland.widget.AutofitTextView
@@ -37,7 +37,7 @@
                 android:layout_weight="70"
                 android:maxLines="1"
                 android:padding="15dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -45,7 +45,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
-            android:background="@color/colorPrimaryDark" />
+            android:background="#fff" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                 android:maxLines="1"
                 android:padding="15dp"
                 android:text="@string/User_Name"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="14sp" />
 
             <me.grantland.widget.AutofitTextView
@@ -72,7 +72,7 @@
                 android:layout_weight="70"
                 android:maxLines="1"
                 android:padding="15dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="14sp" />
 
 
@@ -81,7 +81,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
-            android:background="@color/colorPrimaryDark" />
+            android:background="#fff" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,7 +97,7 @@
                 android:maxLines="1"
                 android:padding="15dp"
                 android:text="@string/email"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="14sp" />
 
             <me.grantland.widget.AutofitTextView
@@ -108,7 +108,7 @@
                 android:layout_weight="70"
                 android:maxLines="1"
                 android:padding="15dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="14sp" />
 
 
@@ -117,7 +117,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
-            android:background="@color/colorPrimaryDark" />
+            android:background="#fff" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -133,7 +133,7 @@
                 android:maxLines="1"
                 android:padding="15dp"
                 android:text="@string/birthday"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="14sp" />
 
             <me.grantland.widget.AutofitTextView
@@ -144,7 +144,7 @@
                 android:layout_weight="70"
                 android:maxLines="1"
                 android:padding="15dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="14sp" />
 
 
@@ -153,7 +153,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
-            android:background="@color/colorPrimaryDark" />
+            android:background="#fff" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -169,7 +169,7 @@
                 android:maxLines="1"
                 android:padding="15dp"
                 android:text="@string/country"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="14sp" />
 
             <me.grantland.widget.AutofitTextView
@@ -179,7 +179,7 @@
                 android:layout_weight="70"
                 android:maxLines="1"
                 android:padding="15dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="14sp" />
 
 
@@ -188,7 +188,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
-            android:background="@color/colorPrimaryDark" />
+            android:background="#fff" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -204,7 +204,7 @@
                 android:maxLines="1"
                 android:padding="15dp"
                 android:text="@string/city"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="14sp" />
 
             <me.grantland.widget.AutofitTextView
@@ -215,7 +215,7 @@
                 android:layout_weight="70"
                 android:maxLines="1"
                 android:padding="15dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="14sp" />
 
 
@@ -224,7 +224,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
-            android:background="@color/colorPrimaryDark" />
+            android:background="#fff" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -240,7 +240,7 @@
                 android:maxLines="1"
                 android:padding="15dp"
                 android:text="@string/gender"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="14sp" />
 
             <me.grantland.widget.AutofitTextView
@@ -251,14 +251,14 @@
                 android:layout_weight="70"
                 android:maxLines="1"
                 android:padding="15dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="14sp" />
         </LinearLayout>
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
-            android:background="@color/colorPrimaryDark" />
+            android:background="#fff" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -274,7 +274,7 @@
                 android:maxLines="1"
                 android:padding="15dp"
                 android:text="@string/children"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="14sp" />
 
             <me.grantland.widget.AutofitTextView
@@ -285,7 +285,7 @@
                 android:layout_weight="70"
                 android:maxLines="1"
                 android:padding="15dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="14sp" />
 
 
@@ -294,7 +294,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
-            android:background="@color/colorPrimaryDark" />
+            android:background="#fff" />
 
     </LinearLayout>
 

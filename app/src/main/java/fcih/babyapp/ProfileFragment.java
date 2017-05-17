@@ -181,7 +181,7 @@ public class ProfileFragment extends Fragment {
         String fullname = fullnameview.getText().toString();
         if (TextUtils.isEmpty(fullname)) {
             fullnameview.setError(getString(R.string.error_field_required));
-        } else if (fullname.length() < 6) {
+        } else if (fullname.length() < 3) {
             fullnameview.setError(getString(R.string.error_invalid_fullname));
         } else if (!fullname.matches("^[a-zA-Z- ]+$")) {
             fullnameview.setError(getString(R.string.error_invalid_fullname));
@@ -204,7 +204,7 @@ public class ProfileFragment extends Fragment {
         baby_add_button = (Button) v.findViewById(R.id.add_baby_btn);
         baby_cancel_button = (Button) v.findViewById(R.id.Cancel);
 
-        //progressDialog.show();
+        progressDialog.show();
         baby_image.setOnClickListener(v1 -> {
             CropImage.startPickImageActivity(getActivity());
             WAITINGFORIMAGE = true;
@@ -222,6 +222,11 @@ public class ProfileFragment extends Fragment {
             collapse(addbabyform);
             expand(recyclerView);
             expand(Addbaby);
+            ImageURI = null;
+            UPDATE = null;
+            baby_name.setText("");
+            baby_birth.setText("Select Date");
+            baby_add_button.setText("Add baby");
         });
 
         baby_add_button.setOnClickListener(v1 -> {
@@ -235,7 +240,7 @@ public class ProfileFragment extends Fragment {
                     progressDialog.show();
                     children.Findbykey(UPDATE, Data -> {
                         Data.name = baby_name.getText().toString();
-                        Data.birth = date.toString();
+                        Data.birth = baby_birth.getText().toString();
                         Data.gender = baby_gender.getSelectedItem().toString();
                         if (ImageURI != null) {
                             Uri file = ImageURI;
@@ -263,7 +268,7 @@ public class ProfileFragment extends Fragment {
                 } else {
                     progressDialog.show();
                     children.name = baby_name.getText().toString();
-                    children.birth = date.toString();
+                    children.birth = baby_birth.getText().toString();
                     children.gender = baby_gender.getSelectedItem().toString();
                     children.parent = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     if (ImageURI != null) {
@@ -275,11 +280,17 @@ public class ProfileFragment extends Fragment {
                             children.image = downloadUrl.toString();
                             children.Add();
                             mAdapter.notifyDataSetChanged();
+                            collapse(addbabyform);
+                            expand(recyclerView);
+                            expand(Addbaby);
                             progressDialog.dismiss();
                         });
                     } else {
                         children.image = "";
                         children.Add();
+                        collapse(addbabyform);
+                        expand(recyclerView);
+                        expand(Addbaby);
                         progressDialog.dismiss();
                         mAdapter.notifyDataSetChanged();
                     }
@@ -293,6 +304,7 @@ public class ProfileFragment extends Fragment {
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, genderArray);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         baby_gender.setAdapter(spinnerArrayAdapter);
+        baby_gender.setPrompt("Select Gender");
 
         baby_birth.setOnClickListener(v1 -> {
             Calendar mcurrentTime = Calendar.getInstance();
@@ -300,7 +312,7 @@ public class ProfileFragment extends Fragment {
             int month = mcurrentTime.get(Calendar.MONTH);
             int day = mcurrentTime.get(Calendar.DAY_OF_MONTH);
             DatePickerDialog mDatePicker;
-            mDatePicker = new DatePickerDialog(getActivity(), (view, year1, month1, dayOfMonth) -> baby_birth.setText(dayOfMonth + "/" + month1 + 1 + "/" + year1), year, month, day);
+            mDatePicker = new DatePickerDialog(getActivity(), (view, year1, month1, dayOfMonth) -> baby_birth.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1), year, month, day);
             mDatePicker.setTitle("Select Date");
             mDatePicker.show();
         });
@@ -316,7 +328,14 @@ public class ProfileFragment extends Fragment {
                     DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
                     try {
                         Date date = df.parse(Data.birth);
-                        viewHolder.mageView.setText(getDateDiff(date, new Date(), TimeUnit.DAYS) + " Days");
+                        int diff = (int) getDateDiff(date, new Date(), TimeUnit.DAYS);
+                        int year = diff / 365;
+                        int Month = (diff % 365) / 30;
+                        int day = (diff % 365) % 30;
+                        String years = year == 0 ? "" : year + " year(s) ";
+                        String Months = Month == 0 ? "" : Month + " Month(s) ";
+                        String Days = day == 0 ? "" : day + " Day(s) ";
+                        viewHolder.mageView.setText(years + Months + Days);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }

@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:background="@color/grey_bg"
+    android:background="@drawable/rounded"
     android:padding="5dp">
 
     <ImageView
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/baby_image"
-        android:paddingTop="10dp"
+        android:paddingTop="8dp"
         android:text="Name"
         android:textColor="@android:color/white"
         android:textSize="25sp" />
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/baby_name"
         android:layout_toRightOf="@+id/baby_image"
-        android:paddingTop="5dp"
+        android:paddingTop="3dp"
         android:text="Male"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
@@ -44,10 +44,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/baby_gender"
         android:layout_toRightOf="@+id/baby_image"
-        android:paddingTop="5dp"
+        android:paddingTop="3dp"
         android:text="3 Years"
         android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:textSize="15sp" />
 
     <ImageButton
         android:id="@+id/item_menu"
