@@ -14,16 +14,22 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 public class BabyNeeds extends AppCompatActivity {
+    final DatabaseReference mchange = FirebaseDatabase.getInstance().getReference().child("Needs");
     private FloatingActionButton Fab;
     private FirebaseAuth mAuth;
     private Query mquery;
     private Button mNeedbtn;
+    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase1;
+    private Query mquery1;
     private Button mHavebtn;
 
     @Override
@@ -36,6 +42,7 @@ public class BabyNeeds extends AppCompatActivity {
         RecyclerView Haves_list = (RecyclerView) findViewById(R.id.haveRecycler);
         mNeedbtn = (Button) findViewById(R.id.needbtnn);
         mHavebtn = (Button) findViewById(R.id.havebtnn);
+
 
         mNeedbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,12 +85,21 @@ public class BabyNeeds extends AppCompatActivity {
 
             }
         });
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase1 = FirebaseDatabase.getInstance().getReference();
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
         Needs_list.setHasFixedSize(true);
         Needs_list.setLayoutManager(new LinearLayoutManager(this));
-        mquery = FireBaseHelper.Needs.Ref.orderByChild(FireBaseHelper.Needs.Table.Childid.text).equalTo(baby_id);
+
+        Haves_list.setHasFixedSize(true);
+        Haves_list.setLayoutManager(new LinearLayoutManager(this));
+        mDatabase = FireBaseHelper.Needs.Ref.child(baby_id);
+        mDatabase1 = FireBaseHelper.Needs.Ref.child(baby_id);
+        mquery = mDatabase.orderByChild(FireBaseHelper.Needs.Table.Status.text).equalTo("0");
+        mquery1 = mDatabase1.orderByChild(FireBaseHelper.Needs.Table.Status.text).equalTo("1");
         FirebaseRecyclerAdapter<FireBaseHelper.Needs, NeedsViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<FireBaseHelper.Needs, NeedsViewHolder>(
                 FireBaseHelper.Needs.class,
                 R.layout.needs_row,
@@ -92,21 +108,52 @@ public class BabyNeeds extends AppCompatActivity {
         ) {
             @Override
             protected void populateViewHolder(NeedsViewHolder viewHolder, FireBaseHelper.Needs model, int position) {
+                String need_id = getRef(position).getKey();
                 viewHolder.setDescription(model.getDescription());
                 viewHolder.setImage(getApplicationContext(), model.getImage());
+                viewHolder.setstate(model.getStatus());
+                viewHolder.getNeed.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DatabaseReference mchangestate = mchange.child(baby_id).child(need_id);
+                        mchangestate.child("status").setValue("1");
+                    }
+                });
+
             }
         };
 
         Needs_list.setAdapter(firebaseRecyclerAdapter);
 
+        FirebaseRecyclerAdapter<FireBaseHelper.Needs, NeedsViewHolder> firebaseRecyclerAdapter1 = new FirebaseRecyclerAdapter<FireBaseHelper.Needs, NeedsViewHolder>(
+                FireBaseHelper.Needs.class,
+                R.layout.needs_row,
+                NeedsViewHolder.class,
+                mquery1
+
+
+        ) {
+            @Override
+            protected void populateViewHolder(NeedsViewHolder viewHolder, FireBaseHelper.Needs model, int position) {
+                viewHolder.setDescription(model.getDescription());
+                viewHolder.setImage(getApplicationContext(), model.getImage());
+                viewHolder.setstate(model.getStatus());
+            }
+        };
+        Haves_list.setAdapter(firebaseRecyclerAdapter1);
+
     }
 
     public static class NeedsViewHolder extends RecyclerView.ViewHolder {
         View mView;
+        Button getNeed;
 
         public NeedsViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
+            getNeed = (Button) mView.findViewById(R.id.get_need);
+
+
         }
 
         public void setDescription(String description) {
@@ -116,7 +163,7 @@ public class BabyNeeds extends AppCompatActivity {
         }
 
         public void setImage(Context ctx, String image) {
-            final ImageView need_image = (ImageView) mView.findViewById(R.id.image_ku);
+            final ImageView need_image = (ImageView) mView.findViewById(R.id.image_uk);
             // Picasso.with(ctx).load(image).into(post_image);
             Picasso.with(ctx).load(image).networkPolicy(NetworkPolicy.OFFLINE).into(need_image, new Callback() {
                 @Override
@@ -131,5 +178,25 @@ public class BabyNeeds extends AppCompatActivity {
             });
 
         }
+
+        public void setstate(String state) {
+            if (state.equals("0")) {
+                TextView need_have = (TextView) mView.findViewById(R.id.need_have);
+                ImageView face = (ImageView) mView.findViewById(R.id.face_uk);
+                face.setImageResource(R.drawable.sadd);
+                need_have.setText("need");
+                getNeed.setVisibility(View.VISIBLE);
+
+            } else {
+                TextView need_have = (TextView) mView.findViewById(R.id.need_have);
+                ImageView face = (ImageView) mView.findViewById(R.id.face_uk);
+                face.setImageResource(R.drawable.happy);
+                need_have.setText("Have");
+                getNeed.setVisibility(View.INVISIBLE);
+
+
+            }
+        }
+
     }
 }

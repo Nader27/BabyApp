@@ -70,7 +70,7 @@ public class AddNeeds extends AppCompatActivity {
                 uploadTask.addOnSuccessListener(taskSnapshot -> {
                     @SuppressWarnings("VisibleForTests") final Uri downloadUrl = taskSnapshot.getDownloadUrl();
                     needs.image = downloadUrl.toString();
-                    needs.Add();
+                    needs.Add(baby_id);
                     mProgress.dismiss();
                     Intent intent = new Intent(AddNeeds.this, BabyNeeds.class);
                     intent.putExtra("BABYID", baby_id);

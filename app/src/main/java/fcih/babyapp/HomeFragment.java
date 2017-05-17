@@ -47,21 +47,22 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        getActivity().findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
-        ViewPager mViewPager = (ViewPager) view.findViewById(R.id.container);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getActivity().getSupportFragmentManager());
-        // Set up the ViewPager with the sections adapter.
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setCurrentItem(1);
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        tabLayout.setVisibility(View.VISIBLE);
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.setupWithViewPager(mViewPager);
-        return view;
-
-
+        if (savedInstanceState == null) {
+            View view = inflater.inflate(R.layout.fragment_home, container, false);
+            getActivity().findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
+            ViewPager mViewPager = (ViewPager) view.findViewById(R.id.container);
+            mSectionsPagerAdapter = new SectionsPagerAdapter(getActivity().getSupportFragmentManager());
+            // Set up the ViewPager with the sections adapter.
+            mViewPager.setAdapter(mSectionsPagerAdapter);
+            mViewPager.setCurrentItem(1);
+            TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+            tabLayout.setVisibility(View.VISIBLE);
+            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+            tabLayout.setupWithViewPager(mViewPager);
+            return view;
+        }
+        return null;
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

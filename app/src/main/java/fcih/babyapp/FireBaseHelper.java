@@ -910,7 +910,7 @@ public class FireBaseHelper {
             for (Table T : Table.values()) {
                 Values.put(T.text, getbyName(this, T.name()));
             }
-            Ref.child(Key).setValue(Values);
+            Ref.child(Key).push().setValue(Values);
         }
 
         public void Update() {
@@ -1389,7 +1389,7 @@ public class FireBaseHelper {
             for (Table T : Table.values()) {
                 Values.put(T.text, getbyName(this, T.name()));
             }
-            Ref.child(Key).setValue(Values);
+            Ref.child(Key).push().setValue(Values);
         }
 
         public void Update() {

@@ -1,67 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_margin="10dp"
+    android:background="@drawable/rounded"
+    android:padding="5dp">
 
+    <ImageView
+        android:id="@+id/image_uk"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/deafult_user_image" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_toRightOf="@+id/image_uk"
+        android:orientation="horizontal"
 
-        <ImageView
-            android:id="@+id/image_ku"
-            android:layout_width="120dp"
-            android:layout_height="180dp"
-            android:background="@color/colorAccent"
-            android:scaleType="centerCrop" />
+        >
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_marginRight="80dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/desc_uk"
+        android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/image_uk"
+                android:paddingTop="8dp"
+                android:text="Name"
+                android:textColor="@android:color/white"
+                android:textSize="25sp" />
+
+            <LinearLayout
+                android:id="@+id/needlinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_marginTop="2dp"
-                android:text="Bajrang Bhaijaan"
-                android:textColor="#2d2d2d"
-                android:textSize="22dp"
-                android:textStyle="bold" />
+                android:layout_below="@+id/desc_uk"
+                android:layout_toRightOf="@+id/image_uk"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/need_have"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/desc_uk"
+                    android:layout_toRightOf="@+id/image_uk"
+                    android:paddingTop="3dp"
+                    android:text="Need"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
 
-            <Button
-                android:id="@+id/remove"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Remove"
-                android:visibility="gone" />
+                <ImageView
+                    android:id="@+id/face_uk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/sad"
 
-            <Button
-                android:id="@+id/edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Edit"
-                android:visibility="gone" />
-
+                    />
+</LinearLayout>
         </LinearLayout>
 
-
+        <Button
+            android:id="@+id/get_need"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/needlinear"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/image_uk"
+            android:background="@drawable/rounded"
+            android:paddingTop="3dp"
+            android:text="Get It"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:visibility="gone" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <View
-
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_marginTop="-6dp"
-            android:background="#e1e1e1" />
-    </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

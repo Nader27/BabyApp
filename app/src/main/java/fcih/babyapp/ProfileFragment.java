@@ -1,9 +1,12 @@
 package fcih.babyapp;
 
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -74,6 +77,8 @@ public class ProfileFragment extends Fragment {
     private ProgressDialog progressDialog;
     private String UserID;
     private Uri ImageURI;
+    private Uri imageUri;
+    private Context context;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -203,11 +208,17 @@ public class ProfileFragment extends Fragment {
         baby_gender = (Spinner) v.findViewById(R.id.baby_add_gender);
         baby_add_button = (Button) v.findViewById(R.id.add_baby_btn);
         baby_cancel_button = (Button) v.findViewById(R.id.Cancel);
+        context = getContext();
 
         progressDialog.show();
         baby_image.setOnClickListener(v1 -> {
-            CropImage.startPickImageActivity(getActivity());
-            WAITINGFORIMAGE = true;
+            if (CropImage.isExplicitCameraPermissionRequired(context)) {
+                WAITINGFORIMAGE = true;
+                requestPermissions(new String[]{android.Manifest.permission.CAMERA}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
+            } else {
+                WAITINGFORIMAGE = true;
+                CropImage.startPickImageActivity(getActivity());
+            }
         });
 
         if (UserID.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
@@ -273,7 +284,7 @@ public class ProfileFragment extends Fragment {
                     children.parent = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     if (ImageURI != null) {
                         Uri file = ImageURI;
-                        StorageReference riversRef = mStorage.child("PostImages/" + file.getLastPathSegment());
+                        StorageReference riversRef = mStorage.child("ChildrenImages/" + file.getLastPathSegment());
                         UploadTask uploadTask = riversRef.putFile(file);
                         uploadTask.addOnSuccessListener(taskSnapshot -> {
                             @SuppressWarnings("VisibleForTests") final Uri downloadUrl = taskSnapshot.getDownloadUrl();
@@ -339,7 +350,9 @@ public class ProfileFragment extends Fragment {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    Picasso.with(getContext()).load(Data.image).fit().into(viewHolder.mImageView);
+                    if (!Data.image.isEmpty()) {
+                        Picasso.with(getContext()).load(Data.image).fit().into(viewHolder.mImageView);
+                    }
                     if (UserID.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
                         viewHolder.mImageButton.setOnClickListener(v1 -> {
                             PopupMenu popup = new PopupMenu(getContext(), viewHolder.mImageButton);
@@ -369,7 +382,12 @@ public class ProfileFragment extends Fragment {
                         viewHolder.mImageButton.setVisibility(View.GONE);
                     }
                     viewHolder.mView.setOnClickListener(v1 -> {
+
                         //TODO: Children hena
+                        Intent intent = new Intent(getActivity(), BabyNeeds.class);
+                        intent.putExtra("BABYID", Data.Key);
+                        intent.putExtra("BABYPARENT", Data.parent);
+                        startActivity(intent);
                     });
                     if (mAdapter.getItemCount() - 1 == position)
                         progressDialog.dismiss();
@@ -386,14 +404,44 @@ public class ProfileFragment extends Fragment {
         return v;
     }
 
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if (requestCode == CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                CropImage.activity(imageUri).setCropShape(CropImageView.CropShape.RECTANGLE).setFixAspectRatio(true)
+                        .start(getContext(), this);
+            } else {
+                Toast.makeText(getContext(), "Cancelling, required permissions are not granted", Toast.LENGTH_LONG).show();
+            }
+        }
+        if (requestCode == CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // required permissions granted, start crop image activity
+                CropImage.activity(imageUri).setCropShape(CropImageView.CropShape.RECTANGLE).setFixAspectRatio(true)
+                        .start(getContext(), this);
+            } else {
+                Toast.makeText(getContext(), "Cancelling, required permissions are not granted", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
     @Override
+    @SuppressLint("NewApi")
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == RESULT_OK && WAITINGFORIMAGE) {
-            Uri imageUri = CropImage.getPickImageResultUri(getContext(), data);
-            CropImage.activity(imageUri).setCropShape(CropImageView.CropShape.RECTANGLE).setFixAspectRatio(true)
-                    .start(getContext(), this);
+            imageUri = CropImage.getPickImageResultUri(context, data);
 
+            // For API >= 23 we need to check specifically that we have permissions to read external storage.
+            if (CropImage.isReadExternalStoragePermissionsRequired(context, imageUri)) {
+                // request permissions and handle the result in onRequestPermissionsResult()
+                requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
+            } else {
+                // no permissions required or already grunted, can start crop image activity
+                //CropImage.activity(imageUri).start(getActivity());
+                baby_image.setImageURI(imageUri);
+                ImageURI = imageUri;
+                WAITINGFORIMAGE = false;
+            }
         } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && WAITINGFORIMAGE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
@@ -402,7 +450,7 @@ public class ProfileFragment extends Fragment {
                 ImageURI = resultUri;
                 WAITINGFORIMAGE = false;
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Toast.makeText(getContext(), result.getError().getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, result.getError().getMessage(), Toast.LENGTH_LONG).show();
                 WAITINGFORIMAGE = false;
             }
         } else if (requestCode == 0) {
