@@ -23,6 +23,8 @@ import com.squareup.picasso.Picasso;
 
 public class BabyNeeds extends AppCompatActivity {
     final DatabaseReference mchange = FirebaseDatabase.getInstance().getReference().child("Needs");
+    String u_id;
+    String parent_id;
     private FloatingActionButton Fab;
     private FirebaseAuth mAuth;
     private Query mquery;
@@ -31,6 +33,15 @@ public class BabyNeeds extends AppCompatActivity {
     private DatabaseReference mDatabase1;
     private Query mquery1;
     private Button mHavebtn;
+    private Button getNeed;
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        Intent intent = new Intent(BabyNeeds.this, BaseActivity.class);
+        startActivity(intent);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +53,7 @@ public class BabyNeeds extends AppCompatActivity {
         RecyclerView Haves_list = (RecyclerView) findViewById(R.id.haveRecycler);
         mNeedbtn = (Button) findViewById(R.id.needbtnn);
         mHavebtn = (Button) findViewById(R.id.havebtnn);
+        getNeed = (Button) findViewById(R.id.get_need);
 
 
         mNeedbtn.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +85,7 @@ public class BabyNeeds extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
+        u_id = mAuth.getCurrentUser().getUid();
         Fab = (FloatingActionButton) findViewById(R.id.fab);
         Fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,18 +154,21 @@ public class BabyNeeds extends AppCompatActivity {
             }
         };
         Haves_list.setAdapter(firebaseRecyclerAdapter1);
-
     }
 
     public static class NeedsViewHolder extends RecyclerView.ViewHolder {
+
         View mView;
         Button getNeed;
+        String baby_parent;
+        FirebaseAuth mAuthh;
+
 
         public NeedsViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
             getNeed = (Button) mView.findViewById(R.id.get_need);
-
+            mAuthh = FirebaseAuth.getInstance();
 
         }
 
@@ -162,7 +178,10 @@ public class BabyNeeds extends AppCompatActivity {
 
         }
 
+
         public void setImage(Context ctx, String image) {
+            //baby_parent = getIntent().getExtras().getString("BABYPARENT");
+
             final ImageView need_image = (ImageView) mView.findViewById(R.id.image_uk);
             // Picasso.with(ctx).load(image).into(post_image);
             Picasso.with(ctx).load(image).networkPolicy(NetworkPolicy.OFFLINE).into(need_image, new Callback() {
@@ -180,12 +199,14 @@ public class BabyNeeds extends AppCompatActivity {
         }
 
         public void setstate(String state) {
+
             if (state.equals("0")) {
+                getNeed.setVisibility(View.VISIBLE);
                 TextView need_have = (TextView) mView.findViewById(R.id.need_have);
                 ImageView face = (ImageView) mView.findViewById(R.id.face_uk);
                 face.setImageResource(R.drawable.sadd);
                 need_have.setText("need");
-                getNeed.setVisibility(View.VISIBLE);
+
 
             } else {
                 TextView need_have = (TextView) mView.findViewById(R.id.need_have);
