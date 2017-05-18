@@ -1,7 +1,6 @@
 package fcih.babyapp;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -65,10 +64,8 @@ public class PostActivity extends AppCompatActivity {
                 @SuppressWarnings("VisibleForTests") final Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 post.image = downloadUrl.toString();
                 post.Add();
-                Intent intent = new Intent(PostActivity.this, BaseActivity.class);
-                intent.putExtra(FRAGMENT, GalleryFragment.class);
-                startActivity(intent);
                 progressDialog.dismiss();
+                finish();
             });
         });
         Close.setOnClickListener(v -> finish());

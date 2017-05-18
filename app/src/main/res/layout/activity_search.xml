@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".AccountFragment">
+    android:background="@drawable/start_background"
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#4a90e2"
+        android:background="@color/colorPrimaryDark"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -21,9 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            app:contentScrim="#4a90e2"
+            app:contentScrim="@color/colorPrimaryDark"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:statusBarScrim="#4a90e2">
+            app:statusBarScrim="@color/colorPrimaryDark">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,19 +35,12 @@
                 android:paddingTop="190dp">
 
                 <TextView
+                    android:id="@+id/toolbar_full_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="HI!"
                     android:textColor="@android:color/white"
-                    android:textSize="30dp"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:text="I am Amornchai, Mobile Application Developer living in Tokyo, Japan "/>
 
             </LinearLayout>
 
@@ -60,8 +51,49 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
+
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/toolbar_user_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/deafult_user_image"
+        app:dependTargetY="-175dp"
+        app:dependType="y"
+        app:dependsOn="@+id/app_bar"
+        app:layout_behavior="com.zoonref.SimpleViewBehavior"
+        app:riv_border_color="@color/Dark_pink"
+        app:riv_border_width="3dip"
+        app:riv_corner_radius="35dip"
+        app:riv_mutate_background="true"
+        app:riv_oval="true"
+        app:riv_tile_mode="clamp"
+        app:targetHeight="40dp"
+        app:targetWidth="40dp"
+        app:targetX="43dp"
+        app:targetY="-19dp" />
+
+    <TextView
+        android:id="@+id/toolbar_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="-100dp"
+        android:alpha="0"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:dependTargetY="-206dp"
+        app:dependType="y"
+        app:dependsOn="@+id/app_bar"
+        app:layout_behavior="com.zoonref.SimpleViewBehavior"
+        app:targetAlpha="1"
+        app:targetX="88dp"
+        app:targetY="-25dp" />
 
     <ProgressBar
         android:id="@+id/progress"
@@ -81,39 +113,5 @@
         android:layout_height="match_parent"
         android:visibility="visible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_gravity="center|top"
-        android:layout_marginTop="50dp"
-        android:elevation="10dp"
-        android:src="@drawable/deafult_user_image"
-        app:dependTargetY="-176dp"
-        app:dependType="y"
-        app:dependsOn="@+id/app_bar"
-        app:layout_behavior="com.zoonref.SimpleViewBehavior"
-        app:targetHeight="40dp"
-        app:targetWidth="40dp"
-        app:targetX="16dp"
-        app:targetY="8dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="-100dp"
-        android:alpha="0"
-        android:elevation="10dp"
-        android:gravity="center_vertical"
-        android:text="Amornchai"
-        android:textColor="@android:color/white"
-        android:textSize="18dp"
-        app:dependTargetY="-206dp"
-        app:dependType="y"
-        app:dependsOn="@+id/app_bar"
-        app:layout_behavior="com.zoonref.SimpleViewBehavior"
-        app:targetAlpha="1"
-        app:targetY="0dp" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -98,8 +98,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/roundedbot"
-                android:padding="25dp"
+                android:entries="@array/gender"
+                android:padding="18dp"
+                android:popupBackground="@color/grey_bg"
+                android:spinnerMode="dialog"
                 android:textColor="@color/white_text"
+                android:textColorHint="@color/white_text"
                 android:textSize="15sp" />
 
 

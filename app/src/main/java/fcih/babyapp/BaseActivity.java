@@ -1,10 +1,13 @@
 package fcih.babyapp;
 
+import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.database.MatrixCursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,16 +30,22 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String USERIDKEY = "useridkey";
     private static boolean WAITINGFORIMAGE = false;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FireBaseHelper.Users CurrentUser;
     private TextView barusername;
+    private List<String> Usernames;
     private String UserID;
     private HomeFragment home;
+    private Menu MENU;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +68,12 @@ public class BaseActivity extends AppCompatActivity
                 }
 
             };
-
+            Usernames = new ArrayList<>();
+            new FireBaseHelper.Users().Tolist(Data -> {
+                for (FireBaseHelper.Users user : Data) {
+                    Usernames.add(user.username);
+                }
+            });
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -92,6 +106,7 @@ public class BaseActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.item_menu, menu);
 
+        MENU = menu;
         SearchSetup(menu);
 
         UserSetup();
@@ -116,12 +131,8 @@ public class BaseActivity extends AppCompatActivity
                 if (!Data.image.isEmpty()) {
                     Picasso.with(getApplicationContext())
                             .load(user.getPhotoUrl())
-                            .resize(navuserimage.getWidth(), navuserimage.getWidth())
+                            .fit()
                             .into(navuserimage);
-                    Picasso.with(getApplicationContext())
-                            .load(user.getPhotoUrl())
-                            .resize(baruserimage.getWidth(), baruserimage.getWidth())
-                            .into(baruserimage);
                 }
                 navusername.setText(user.getDisplayName());
                 barfullusername.setText(user.getDisplayName());
@@ -157,11 +168,21 @@ public class BaseActivity extends AppCompatActivity
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                new FireBaseHelper.Users().Where(FireBaseHelper.Users.Table.Username, query, Data -> {
+                    if (Data.size() == 0) {
+                        Toast.makeText(getApplicationContext(), "User Not Found", Toast.LENGTH_LONG).show();
+                    } else {
+                        Intent intent = new Intent(BaseActivity.this, SearchActivity.class);
+                        intent.putExtra(USERIDKEY, Data.get(0).Key);
+                        startActivity(intent);
+                    }
+                });
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                //loadHistory(newText);
                 return false;
             }
         });
@@ -181,6 +202,36 @@ public class BaseActivity extends AppCompatActivity
         }
     }
 
+    // History
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private void loadHistory(String query) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+
+            // Cursor
+            String[] columns = new String[]{"_id", "text"};
+            Object[] temp = new Object[]{0, "default"};
+
+            MatrixCursor cursor = new MatrixCursor(columns);
+
+            for (int i = 0; i < Usernames.size(); i++) {
+
+                temp[0] = i;
+                temp[1] = Usernames.get(i);
+
+                cursor.addRow(temp);
+
+            }
+
+            // SearchView
+            SearchManager manager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+            final SearchView search = (SearchView) MENU.findItem(R.id.action_search).getActionView();
+
+            search.setSuggestionsAdapter(new SearchAdapter(this, cursor, Usernames));
+
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -234,7 +285,7 @@ public class BaseActivity extends AppCompatActivity
             home = HomeFragment.newInstance(UserID);
             getSupportFragmentManager().beginTransaction().replace(R.id.Content, home).commit();
         } else if (id == R.id.nav_account) {
-
+            startActivity(new Intent(BaseActivity.this, AccountActivity.class));
         } else if (id == R.id.nav_notifications) {
 
         } else if (id == R.id.nav_camera) {

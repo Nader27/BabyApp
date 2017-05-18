@@ -14,7 +14,6 @@ import me.grantland.widget.AutofitTextView;
 
 public class AboutFragment extends Fragment {
     private static final String ARG_PARAM = "USERID";
-    private static AboutFragment fragment;
     private AutofitTextView about_username, about_email, about_gender, about_child_num, about_country, about_birthofdate, about_name, about_city;
     private ProgressDialog progressDialog;
     private String UserID;
@@ -24,8 +23,7 @@ public class AboutFragment extends Fragment {
     }
 
     public static AboutFragment newInstance(String uid) {
-        if (fragment == null)
-            fragment = new AboutFragment();
+        AboutFragment fragment = new AboutFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM, uid);
         fragment.setArguments(args);

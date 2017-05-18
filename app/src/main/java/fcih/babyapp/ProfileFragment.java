@@ -58,11 +58,10 @@ import static android.app.Activity.RESULT_OK;
  */
 public class ProfileFragment extends Fragment {
 
-    private static final String genderArray[] = {"male", "female"};
+    private static final String genderArray[] = {"Male", "Female"};
     private static final String ARG_PARAM = "USERID";
     private static boolean WAITINGFORIMAGE = false;
     private static String UPDATE = null;
-    private static ProfileFragment fragment;
     FirebaseRecyclerAdapter<FireBaseHelper.Children, babyviewholder> mAdapter = null;
     private StorageReference mStorage;
     private RecyclerView recyclerView;
@@ -86,8 +85,7 @@ public class ProfileFragment extends Fragment {
 
 
     public static ProfileFragment newInstance(String uid) {
-        if (fragment == null)
-            fragment = new ProfileFragment();
+        ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM, uid);
         fragment.setArguments(args);
@@ -437,10 +435,10 @@ public class ProfileFragment extends Fragment {
                 requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
             } else {
                 // no permissions required or already grunted, can start crop image activity
-                //CropImage.activity(imageUri).start(getActivity());
-                baby_image.setImageURI(imageUri);
+                CropImage.activity(imageUri).setCropShape(CropImageView.CropShape.RECTANGLE).setFixAspectRatio(true)
+                        .start(getContext(), this);
+                //baby_image.setImageURI(imageUri);
                 ImageURI = imageUri;
-                WAITINGFORIMAGE = false;
             }
         } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && WAITINGFORIMAGE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);

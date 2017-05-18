@@ -940,7 +940,7 @@ public class FireBaseHelper {
                         setbyName(obj, T.name(), dataSnapshot.child(T.text).getValue().toString());
                     }
                     //if no foreign key
-                    obj.Users.Findbykey(obj.Key, Data -> {
+                    obj.Users.Findbykey(obj.uid, Data -> {
                         obj.Users = Data;
                         listener.onSuccess(obj);
                     });
@@ -969,7 +969,7 @@ public class FireBaseHelper {
                         for (Table T : Table.values()) {
                             setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
                         }
-                        obj.Users.Findbykey(obj.Key, Data -> {
+                        obj.Users.Findbykey(obj.uid, Data -> {
                             obj.Users = Data;
                             Items.add(obj);
                             if (!iterator.hasNext()) {
@@ -1006,7 +1006,7 @@ public class FireBaseHelper {
                             setbyName(obj, T.name(), postSnapshot.child(T.text).getValue().toString());
                         }
                         //if no foreign key
-                        obj.Users.Findbykey(obj.Key, Data -> {
+                        obj.Users.Findbykey(obj.uid, Data -> {
                             obj.Users = Data;
                             Items.add(obj);
                             if (!iterator.hasNext()) {

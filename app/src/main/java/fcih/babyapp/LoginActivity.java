@@ -177,36 +177,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (isUsernameValid(mregister_usernameView) && isFullnameValid(mregister_fullnameView)
                 && isEmailValid(mregister_emailView) && isPasswordValid(mregister_passwordView)) {
             showProgress(true);
-            mAuth.createUserWithEmailAndPassword(mregister_emailView.getText().toString(), mregister_passwordView.getText().toString())
-                    .addOnCompleteListener(this, task -> {
-                        if (task.isSuccessful()) {
+            new FireBaseHelper.Users().Where(FireBaseHelper.Users.Table.Username, mregister_usernameView.getText().toString(), Data -> {
+                if (Data.size() == 0) {
+                    mAuth.createUserWithEmailAndPassword(mregister_emailView.getText().toString(), mregister_passwordView.getText().toString())
+                            .addOnCompleteListener(this, task -> {
+                                if (task.isSuccessful()) {
 
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(mregister_fullnameView.getText().toString())
-                                    .build();
-                            mAuth.signOut();
-                            mAuth.signInWithEmailAndPassword(mregister_emailView.getText().toString(), mregister_passwordView.getText().toString());
-                            final FirebaseUser user = task.getResult().getUser();
-                            user.updateProfile(profileUpdates);
-                            FireBaseHelper.Users FUSER = new FireBaseHelper.Users();
-                            FUSER.name = mregister_fullnameView.getText().toString();
-                            FUSER.username = mregister_usernameView.getText().toString();
-                            FUSER.email = user.getEmail();
-                            FUSER.image = "";
-                            FUSER.birth = "";
-                            FUSER.gender = "";
-                            FUSER.city = "";
-                            FUSER.country = "";
-                            FUSER.Add(user.getUid());
-                            showProgress(false);
-                            startActivity(new Intent(LoginActivity.this, BaseActivity.class));
-                            finish();
-                        } else {
-                            showProgress(false);
-                            Toast.makeText(LoginActivity.this, task.getException().getMessage(),
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                            .setDisplayName(mregister_fullnameView.getText().toString())
+                                            .build();
+                                    mAuth.signOut();
+                                    mAuth.signInWithEmailAndPassword(mregister_emailView.getText().toString(), mregister_passwordView.getText().toString());
+                                    final FirebaseUser user = task.getResult().getUser();
+                                    user.updateProfile(profileUpdates);
+                                    FireBaseHelper.Users FUSER = new FireBaseHelper.Users();
+                                    FUSER.name = mregister_fullnameView.getText().toString();
+                                    FUSER.username = mregister_usernameView.getText().toString();
+                                    FUSER.email = user.getEmail();
+                                    FUSER.image = "";
+                                    FUSER.birth = "";
+                                    FUSER.gender = "";
+                                    FUSER.city = "";
+                                    FUSER.country = "";
+                                    FUSER.Add(user.getUid());
+                                    showProgress(false);
+                                    startActivity(new Intent(LoginActivity.this, AccountActivity.class));
+                                    finish();
+                                } else {
+                                    showProgress(false);
+                                    Toast.makeText(LoginActivity.this, task.getException().getMessage(),
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else {
+                    mregister_usernameView.setError("Username Already used");
+                    mregister_usernameView.requestFocus();
+                }
+            });
+
         }
     }
 

@@ -2,6 +2,7 @@ package fcih.babyapp;
 
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
@@ -26,26 +27,37 @@ import com.google.firebase.storage.UploadTask;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
+import me.grantland.widget.AutofitTextView;
+
 import static android.app.Activity.RESULT_OK;
 
 public class AccountFragment extends Fragment implements View.OnClickListener {
 
     private static int RESULT_LOAD_IMAGE = 1;
+    private static AccountFragment fragment;
     private TextView mNameview;
     private boolean profilechange = false;
     private String picturePath;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference storageRef = storage.getReference();
+    private EditText account_username, account_gender, account_country, account_birthofdate, account_name, account_city;
+    private AutofitTextView account_email, account_password;
     private AlertDialog dialog;
     private AlertDialog Edialog;
     private FirebaseAuth mAuth;
-    private RoundedImageView imageView;
+    private RoundedImageView account_imageView;
     private BaseActivity activity;
+    private ProgressDialog progressDialog;
 
     public AccountFragment() {
         mAuth = FirebaseAuth.getInstance();
         activity = (BaseActivity) getActivity();
         // Required empty public constructor
+    }
+
+    public static AccountFragment newInstance() {
+        AccountFragment fragment = new AccountFragment();
+        return fragment;
     }
 
     @Override
@@ -55,7 +67,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         mNameview = (TextView) view.findViewById(R.id.nameedit);
         mNameview.setText(mAuth.getCurrentUser().getDisplayName());
-        imageView = (RoundedImageView) view.findViewById(R.id.userimage);
+        account_imageView = (RoundedImageView) view.findViewById(R.id.userimage);
         activity.findViewById(R.id.tabs).setVisibility(View.GONE);
         activity.findViewById(R.id.toolbar).setVisibility(View.GONE);
         TextView mEmailview = (TextView) view.findViewById(R.id.emailedit);
@@ -92,7 +104,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
             profilechange = true;
 
-            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            account_imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
     }
 

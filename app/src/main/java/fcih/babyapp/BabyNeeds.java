@@ -204,14 +204,14 @@ public class BabyNeeds extends AppCompatActivity {
                 getNeed.setVisibility(View.VISIBLE);
                 TextView need_have = (TextView) mView.findViewById(R.id.need_have);
                 ImageView face = (ImageView) mView.findViewById(R.id.face_uk);
-                face.setImageResource(R.drawable.sadd);
+                face.setImageResource(R.drawable.ic_sad);
                 need_have.setText("need");
 
 
             } else {
                 TextView need_have = (TextView) mView.findViewById(R.id.need_have);
                 ImageView face = (ImageView) mView.findViewById(R.id.face_uk);
-                face.setImageResource(R.drawable.happy);
+                face.setImageResource(R.drawable.ic_happy);
                 need_have.setText("Have");
                 getNeed.setVisibility(View.INVISIBLE);
 

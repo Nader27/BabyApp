@@ -34,4 +34,11 @@
     <string name="country">COUNTRY</string>
     <string name="city">CITY</string>
     <string name="birthday">BIRTHDATE</string>
+    <string name="error_invalid_cityorcountry">Invalid City or Country</string>
+    <string name="search">search</string>
+
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
 </resources>
