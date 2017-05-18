@@ -81,7 +81,7 @@ public class GalleryFragment extends Fragment {
                         viewHolder.numberoflikes.setText(String.format(Locale.ENGLISH, "%d", Data1.size()));
                         for (int i = 0; i < Data1.size(); i++) {
                             FireBaseHelper.Likes like = Data1.get(i);
-                            if (like.uid.equals(UserID)) {
+                            if (like.uid.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
                                 viewHolder.mlikebtn.setImageResource(R.drawable.like);
                                 viewHolder.mlikebtn.setOnClickListener(v1 -> {
                                     new FireBaseHelper.Likes().Remove(like.Key);
